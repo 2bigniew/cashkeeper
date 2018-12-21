@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
+const con = require('./Database/Connection/Connetion');
 
 const indexRouter = require('./Api/Routing/Index/index');
 
@@ -20,7 +21,15 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: {}
-}))
+}));
+
+con.authenticate()
+    .then(() => {
+        console.log('Connection has been established successfully');
+    })
+    .catch(( err ) => {
+        console.error('Unable to connect to the database:', err);
+    });
 
 //Routes **************************************************************
 app.use('/', indexRouter);
