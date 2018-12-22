@@ -10,6 +10,11 @@ const UserAccount = con.define('UserAccount', {
     bank_account: Sequalize.STRING,
     is_deleted: Sequalize.BOOLEAN,
     deleted_date: Sequalize.DATE
+}, {
+    tableName: 'user_account',
+    createdAt: 'created_at',
+    updatedAt: false,
+    underscored: true,
 });
 
 module.exports = UserAccount;

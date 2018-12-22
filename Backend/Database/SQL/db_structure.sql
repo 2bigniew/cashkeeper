@@ -6,6 +6,7 @@ create table user_account(
   firstname character varying,
   lastname character varying,
   bank_account character varying,
+  created_at timestamp without time zone,
   is_deleted boolean,
   deleted_date timestamp without time zone,
   primary key(user_id)
@@ -20,7 +21,7 @@ create table user_info(
   street character varying,
   number character varying(10),
   local character varying(10),
-  city character varying(12),
+  city character varying(255),
   country character varying,
   mobile character varying(15),
   email character varying,
@@ -44,6 +45,7 @@ create table partner_account(
   mobile character varying(15),
   email character varying,
   bank_account character varying,
+  created_at timestamp without time zone,
   is_active boolean,
   is_deleted boolean,
   deleted_date timestamp without time zone,
@@ -62,6 +64,7 @@ create table loan_details(
   loan_date date,
   purpose text,
   value double precision,
+  created_at timestamp without time zone,
   is_completed boolean,
   primary key(loan_id),
   foreign key(partner_id) references partner_account(partner_id),
@@ -79,6 +82,7 @@ create table borrow_details(
   borrow_date date,
   purpose text,
   value double precision,
+  created_at timestamp without time zone,
   is_completed boolean,
   primary key(borrow_id),
   foreign key(partner_id) references partner_account(partner_id),
@@ -94,6 +98,7 @@ create table loan_payment_details(
   user_id integer,
   payment_date date,
   payment_value double precision,
+  created_at timestamp without time zone,
   primary key(loan_payment_details_id),
   foreign key(loan_id) references loan_details(loan_id),
   foreign key(user_id) references user_account(user_id)
@@ -108,6 +113,7 @@ create table borrow_payment_details(
   user_id integer,
   payment_date date,
   payment_value double precision,
+  created_at timestamp without time zone,
   primary key(borrow_payment_details_id),
   foreign key(borrow_id) references borrow_details(borrow_id),
   foreign key(user_id) references user_account(user_id)
@@ -124,6 +130,7 @@ create table template_mail(
   content text,
   end_line character varying,
   is_default boolean,
+  created_at timestamp without time zone,
   primary key(template_id),
   foreign key(user_id) references user_account(user_id)
 );
@@ -139,6 +146,7 @@ create table template_sms(
   content text,
   end_line character varying,
   is_default boolean,
+  created_at timestamp without time zone,
   primary key(template_id),
   foreign key(user_id) references user_account(user_id)
 );
@@ -155,6 +163,7 @@ create table mail_messages(
   mail_content text,
   date_of_send timestamp without time zone,
   loan_details_serials text,
+  created_at timestamp without time zone,
   primary key(mail_id),
   foreign key(partner_id) references partner_account(partner_id),
   foreign key(user_id) references user_account(user_id)
@@ -172,6 +181,7 @@ create table sms_messages(
   sms_content text,
   date_of_send timestamp without time zone,
   loan_details_serials text,
+  created_at timestamp without time zone,
   primary key(sms_id),
   foreign key(partner_id) references partner_account(partner_id),
   foreign key(user_id) references user_account(user_id)

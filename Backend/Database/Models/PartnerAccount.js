@@ -28,8 +28,9 @@ const PartnerAccount = con.define('PartnerAccount', {
 },
 {
     tableName: 'partner_account',
-    createdAt: false,
-    updatedAt: false
+    createdAt: 'created_at',
+    updatedAt: false,
+    underscored: true
 });
 
 module.exports = PartnerAccount;
