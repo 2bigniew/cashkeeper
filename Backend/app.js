@@ -53,6 +53,6 @@ const UserAccount = require('./Database/Models/UserAccount');
 
 //Passport Strategies *************************************************
 
-require('./Config/passport')(passport, UserAccount);
+require('./Passport/local')(passport, UserAccount);
 
 module.exports = app; 

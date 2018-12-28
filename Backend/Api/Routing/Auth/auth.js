@@ -11,8 +11,8 @@ router.get('/login-success', AuthController.loginSuccess);
 router.get('/login-fail', AuthController.loginFail);;
 
 router.post('/authorization-check', passport.authenticate('local-create-account', {
-    successRedirect: '/login-success',
-    failureRedirect: '/login-fail'
+    successRedirect: '/login/login-success',
+    failureRedirect: '/login/login-fail'
 }));
 
 module.exports = router;
