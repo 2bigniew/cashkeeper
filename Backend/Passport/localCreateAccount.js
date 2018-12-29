@@ -1,8 +1,10 @@
+const crypto = require('crypto');
+
 module.exports = function(passport, user) {
  
     const User = user;
     const LocalStrategy = require('passport-local').Strategy;
-
+        
     passport.serializeUser(function(user, done) {
         done(null, user.user_id);
     });
@@ -22,16 +24,11 @@ module.exports = function(passport, user) {
         passwordField: 'password',
         passReqToCallback: true
     },
-    
 
     function(req, login, password, done) {
-        // const generateHash = function(password) {
- 
-        //     return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
-
-        // };
-
-        // dlaczego przy create automatycznie nadaje user_id jako NULL ???
+        const hashPassword = crypto.createHmac('sha256', process.env.SECRET)
+            .update(password)
+            .digest('hex');
 
         User.findOne({
             where: {
@@ -43,7 +40,7 @@ module.exports = function(passport, user) {
                     message: 'That email is already taken' // napisac przekierowanie i wiadomosc we flashu 
                 })
             } else {
-                const userPassword = password;
+                const userPassword = hashPassword;
                 const data = {
                     login: login,
                     password: userPassword,
