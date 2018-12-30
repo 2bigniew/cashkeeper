@@ -3,6 +3,7 @@ const PartnerAccount = require('../../../Database/Models/PartnerAccount');
 
 exports.home = async(req, res, next) => {
     try {
+        console.log(req.session);
         const partners = await PartnerAccount.findAll();
         res.send( partners );
     } catch( err ) {

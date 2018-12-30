@@ -1,5 +1,5 @@
 const Sequalize = require('sequelize');
-const sequalize = new Sequalize('cashkeeper', 'zbigniew', 'admin1989', {
+const sequalize = new Sequalize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
     host: 'localhost',
     dialect: 'postgres',
     operatorsAliases: false,
