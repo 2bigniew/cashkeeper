@@ -4,43 +4,62 @@ module.exports = function(passport, user) {
 
     const LocalStrategy = require('passport-local').Strategy;
 
+    passport.serializeUser(function(user, done) {
+        done(null, user.user_id);
+    });
+
+    passport.deserializeUser(function(id, done) {
+        User.findByPk(id).then(function(user) {
+            if (user) {
+                done(null, user.get());
+            } else {
+                done(user.errors, null);
+            }
+        });
+    });
+
     passport.use('local-log-in', new LocalStrategy({
         usernameField: 'login',
         passwordField: 'password',
         passReqToCallback: true 
     },
 
-    function(req, login, password, done) {
+    async (req, login, password, done) => {
         const User = user;
         const isValidPassword = (userpass, dbpass) => userpass === dbpass;
 
-        User.findOne({
-            where: {
-                login: login
-            }
-        }).then(user => {
+        try {
+            const user = await User.findOne({
+                where: {
+                    login: login
+                }
+            });
+
+            const hashPassword = crypto.createHmac('sha256', process.env.SECRET)
+                .update(password)
+                .digest('hex');
+
             if (!user) {
                 return done(null, false, {
                     message: 'User does not exist'
                 });
-            }
+            };
 
-            if(!isValidPassword(password, user.password)) {
+            if(!isValidPassword(hashPassword, user.password)) {
                 return done(null, false, {
                     message: 'Incorrect password.'
                 });
-            }
+            };
 
             const userInfo = user.get();
             return done(null, userInfo);
 
-        }).catch((err) => {
+        } catch(err) {
             console.log("Error:", err);
             return done(null, false, {
                 message: 'Something went wrong with your Signin'
             });
- 
-        });
+        }
     }
 ))
-}
+};

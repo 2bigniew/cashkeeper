@@ -19,22 +19,24 @@ module.exports = function(passport, user) {
         });
     });
 
-    passport.use('local-create-account', new LocalStrategy({
+    passport.use('local-create-user', new LocalStrategy({
         usernameField: 'login',
         passwordField: 'password',
         passReqToCallback: true
     },
 
-    function(req, login, password, done) {
+    async (req, login, password, done) => {
         const hashPassword = crypto.createHmac('sha256', process.env.SECRET)
             .update(password)
             .digest('hex');
 
-        User.findOne({
-            where: {
-                login: login
-            }
-        }).then(user => {
+        try {
+            const user = await User.findOne({
+                where: {
+                    login: login
+                }
+            });
+
             if (user) {
                 return done(null, false, {
                     message: 'That email is already taken' // napisac przekierowanie i wiadomosc we flashu 
@@ -51,18 +53,21 @@ module.exports = function(passport, user) {
                     bank_account: req.body.bank_account,
                 };
 
-                User.create(data).then(function(newUser) {
-                        console.log(newUser);
+                const newUser = await User.create(data);
+     
                     if (!newUser) {
                         return done(null, false);
                     }
 
                     if (newUser) {
                         return done(null, newUser);
-                    }
-                });    
+                    }   
             }
-        })
+        } catch (err) {
+            return done(null, false, {
+                message: 'Something went wrong with your Signin'
+            });
+        }
     }
 ))
 }

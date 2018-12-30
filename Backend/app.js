@@ -45,7 +45,7 @@ con.authenticate()
 //Routes **************************************************************
 
 app.use('/home', indexRouter);
-app.use('/', isLoggedIn, authRouter);
+app.use('/', authRouter);
 
 //Models **************************************************************
 
@@ -54,5 +54,6 @@ const UserAccount = require('./Database/Models/UserAccount');
 //Passport Strategies *************************************************
 
 require('./Passport/localCreateAccount')(passport, UserAccount);
+require('./Passport/localLogIn')(passport, UserAccount);
 
 module.exports = app; 

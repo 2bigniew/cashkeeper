@@ -1,13 +1,26 @@
+exports.createUser = ( req, res, next ) => {
+    res.render('createUser.ejs');
+};
+
+exports.createUserSuccess = ( req, res, next ) => {
+    res.send(`Success!! User created`);
+};
+
+exports.createUserFail = ( req, res, next ) => {
+    res.send(`Fail :( Try create user again`);
+};
+
 exports.login = ( req, res, next ) => {
     res.render('login.ejs');
 };
 
 exports.loginSuccess = ( req, res, next ) => {
-    res.send(`Success!! Your request body: <br />  ${req.body}`);
+    // console.log(req.session);
+    res.send(`Success!! Hello`);
 };
 
 exports.loginFail = ( req, res, next ) => {
-    res.send(`Fail :( Your request body: <br />  ${req.body}`);
+    res.send(`Fail :( try login again`);
 };
 
 exports.logout = function(req, res) {
