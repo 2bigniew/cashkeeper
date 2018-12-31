@@ -11,6 +11,7 @@ const con = require('./Database/Connection/Connetion');
 
 const indexRouter = require('./Api/Routing/Index/index');
 const authRouter = require('./Api/Routing/Auth/auth');
+const userRouter = require('./Api/Routing/BasicData/User');
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -46,6 +47,7 @@ con.authenticate()
 
 app.use('/home', indexRouter);
 app.use('/', authRouter);
+app.use('/user', userRouter);
 
 //Models **************************************************************
 

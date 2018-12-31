@@ -3,7 +3,7 @@ const con = require('../Connection/Connetion');
 const UserAccount = require('./UserAccount');
 
 const UserInfo = con.define('UserInfo', {
-    u_info_id: { type: Sequalize.INTEGER, primaryKey: true },
+    u_info_id: { type: Sequalize.INTEGER, primaryKey: true, autoIncrement: true },
     street: Sequalize.STRING,
     number: Sequalize.STRING(10),
     local: Sequalize.STRING(10),

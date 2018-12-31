@@ -5,7 +5,7 @@ const Helpers = require('../../../Helpers/Helpers');
 
 const AuthController = require('../../Controller/Auth/AuthController');
 
-router.get('/login', Helpers.isLoggedIn, AuthController.login);
+router.get('/login', Helpers.shouldShowLoginOrCreateAccout, AuthController.login);
 
 router.get('/login-success', AuthController.loginSuccess);
 
@@ -16,7 +16,7 @@ router.post('/authorization-login', passport.authenticate('local-log-in', {
     failureRedirect: '/login-fail'
 }));
 
-router.get('/create-user', Helpers.isLoggedIn, AuthController.createUser);
+router.get('/create-user', Helpers.shouldShowLoginOrCreateAccout, AuthController.createUser);
 
 router.get('/create-user-success', AuthController.createUserSuccess);
 

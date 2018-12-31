@@ -15,7 +15,7 @@ exports.login = ( req, res, next ) => {
 };
 
 exports.loginSuccess = ( req, res, next ) => {
-    // console.log(req.session);
+    console.log(req.session);
     res.send(`Success!! Hello`);
 };
 
