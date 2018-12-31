@@ -9,9 +9,11 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const con = require('./Database/Connection/Connetion');
 
-const indexRouter = require('./Api/Routing/Index/index');
-const authRouter = require('./Api/Routing/Auth/auth');
-const userRouter = require('./Api/Routing/BasicData/User');
+const IndexRouter = require('./Api/Routing/Index/index');
+const AuthRouter = require('./Api/Routing/Auth/auth');
+const UserRouter = require('./Api/Routing/BasicData/User');
+const PartnerRouter = require('./Api/Routing/BasicData/Partner');
+const MoneyQuotesRouter = require('./Api/Routing/BasicData/MoneyQuotes');
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -45,9 +47,12 @@ con.authenticate()
 
 //Routes **************************************************************
 
-app.use('/home', indexRouter);
-app.use('/', authRouter);
-app.use('/user', userRouter);
+app.get('/', (req, res, next) => res.redirect('/home'));
+app.use('/home', IndexRouter);
+app.use('/', AuthRouter);
+app.use('/user', UserRouter);
+app.use('/partners', PartnerRouter);
+app.use('/quotes', MoneyQuotesRouter);
 
 //Models **************************************************************
 
