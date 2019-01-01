@@ -4,8 +4,9 @@ const passport = require('passport');
 const Helpers = require('../../../Helpers/Helpers');
 
 const PartnerCotroller = require('../../Controller/BasicData/PartnerController');
+const errorHandler = require('../../Middleware/error');
 
-router.get('/list', Helpers.isLoggedIn, PartnerCotroller.getPartnersBasicData);
-router.get('/:lastname', Helpers.isLoggedIn, PartnerCotroller.getPartnerDataByLastname);
+router.get('/list', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(PartnerCotroller.getPartnersBasicData));
+router.get('/:lastname', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(PartnerCotroller.getPartnerDataByLastname));
 
 module.exports = router;

@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const MoneyQuotesController = require('../../Controller/BasicData/MoneyQuotesController');
+const errorHandler = require('../../Middleware/error');
 
-router.get('/', MoneyQuotesController.getQuotes);
+router.get('/', errorHandler.catchAsyncErrors(MoneyQuotesController.getQuotes));
 
 module.exports = router;
