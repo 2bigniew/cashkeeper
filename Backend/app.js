@@ -9,6 +9,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const con = require('./Database/Connection/Connetion');
 
+const ErrorsHandler = require('./Api/Middleware/error');
 const IndexRouter = require('./Api/Routing/Index/index');
 const AuthRouter = require('./Api/Routing/Auth/auth');
 const UserRouter = require('./Api/Routing/BasicData/User');
@@ -38,6 +39,7 @@ app.use(session({
         loggedIn: false
     }
 }));
+
 app.use(passport.initialize());
 app.use(passport.session())
 
@@ -61,6 +63,11 @@ app.use('/loan', LoanDetailsRouter);
 app.use('/loan-payments', LoanPaymentsDetailsRouter);
 app.use('/borrow', BorrowDetailsRouter);
 app.use('/borrow-payments', BorrowPaymentsDetailsRouter);
+
+//Errors **************************************************************
+
+app.use(ErrorsHandler.notFound);
+app.use(ErrorsHandler.catchErrors);
 
 //Models **************************************************************
 
