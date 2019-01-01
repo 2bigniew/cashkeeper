@@ -29,7 +29,7 @@ module.exports = function(passport, user) {
         const hashPassword = crypto.createHmac('sha256', process.env.SECRET)
             .update(password)
             .digest('hex');
-
+            
         try {
             const user = await User.findOne({
                 where: {
