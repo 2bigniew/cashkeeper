@@ -14,6 +14,10 @@ const AuthRouter = require('./Api/Routing/Auth/auth');
 const UserRouter = require('./Api/Routing/BasicData/User');
 const PartnerRouter = require('./Api/Routing/BasicData/Partner');
 const MoneyQuotesRouter = require('./Api/Routing/BasicData/MoneyQuotes');
+const LoanDetailsRouter = require('./Api/Routing/BasicData/LoanDetails');
+const LoanPaymentsDetailsRouter = require('./Api/Routing/BasicData/LoanPaymentDetails');
+const BorrowDetailsRouter = require('./Api/Routing/BasicData/BorrowDetails');
+const BorrowPaymentsDetailsRouter = require('./Api/Routing/BasicData/BorrowPaymentDetails');
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -53,6 +57,10 @@ app.use('/', AuthRouter);
 app.use('/user', UserRouter);
 app.use('/partners', PartnerRouter);
 app.use('/quotes', MoneyQuotesRouter);
+app.use('/loan', LoanDetailsRouter);
+app.use('/loan-payments', LoanPaymentsDetailsRouter);
+app.use('/borrow', BorrowDetailsRouter);
+app.use('/borrow-payments', BorrowPaymentsDetailsRouter);
 
 //Models **************************************************************
 
