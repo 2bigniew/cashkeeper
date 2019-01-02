@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const Helpers = require('../../../Helpers/Helpers');
 
-const UserController = require('../../Controller/BasicData/UserController');
+const UserController = require('../../Controller/User/UserController');
 const errorHandler = require('../../Middleware/error');
 
 router.get('/info', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(UserController.getUserBasicData));

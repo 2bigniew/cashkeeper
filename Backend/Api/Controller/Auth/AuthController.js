@@ -3,11 +3,12 @@ exports.createUser = ( req, res, next ) => {
 };
 
 exports.createUserSuccess = ( req, res, next ) => {
-    res.send(`Success!! User created`);
+    req.flash('user-message', `Tworzenie konta uzytkownika zakonczone sukcesem`);
+    res.redirect(`/home`);
 };
 
 exports.createUserFail = ( req, res, next ) => {
-    res.send(`Fail :( Try create user again`);
+    res.redirect(`/home`);
 };
 
 exports.login = ( req, res, next ) => {
@@ -15,12 +16,12 @@ exports.login = ( req, res, next ) => {
 };
 
 exports.loginSuccess = ( req, res, next ) => {
-    console.log(req.session);
-    res.send(`Success!! Hello`);
+    req.flash('user-message', `Pomyslne logowanie`);
+    res.redirect('/home');
 };
 
 exports.loginFail = ( req, res, next ) => {
-    res.send(`Fail :( try login again`);
+    res.redirect('/home');
 };
 
 exports.logout = function(req, res) {

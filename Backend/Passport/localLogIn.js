@@ -40,18 +40,21 @@ module.exports = function(passport, user) {
                 .digest('hex');
 
             if (!user) {
+                const flashMessage = req.flash('user-message', 'User does not exist');
                 return done(null, false, {
                     message: 'User does not exist'
                 });
             };
 
             if(!isValidPassword(hashPassword, user.password)) {
+                const flashMessage = req.flash('user-message', 'Incorrect password');
                 return done(null, false, {
                     message: 'Incorrect password.'
                 });
             };
 
             const userInfo = user.get();
+            req.flash('user-login', user.login)
             return done(null, userInfo);
 
         } catch(err) {
