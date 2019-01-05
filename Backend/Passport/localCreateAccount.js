@@ -38,6 +38,7 @@ module.exports = function(passport, user) {
             });
 
             if (user) {
+                req.flash('user-message', 'That login is already taken');
                 return done(null, false, {
                     message: 'That email is already taken' // napisac przekierowanie i wiadomosc we flashu 
                 })
@@ -60,12 +61,14 @@ module.exports = function(passport, user) {
                     }
 
                     if (newUser) {
+                        req.flash('user-login', newUser.login)
                         return done(null, newUser);
                     }   
             }
         } catch (err) {
+            req.flash('user-message', 'Something went wrong :(');
             return done(null, false, {
-                message: 'Something went wrong with your Signin'
+                message: 'Something went wrong :('
             });
         }
     }

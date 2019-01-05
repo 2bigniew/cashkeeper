@@ -1,20 +1,13 @@
-const Sequalize = require('sequelize');
-const PartnerAccount = require('../../../Database/Models/PartnerAccount');
+const MoneyQuotes = require('../../../Database/Models/MoneyQuotes');
 
 exports.home = async(req, res, next) => {
-    console.log(req.session);
-    const partners = await PartnerAccount.findAll();
-    res.send( partners );
+    const quotes = await MoneyQuotes.findAll();
+    const userLogin = req.flash('user-login');
+    const flashMessage = req.flash('user-message');
+    const responseData = {
+        login: userLogin,
+        message: flashMessage,
+        data: quotes
+    };
+    res.json( responseData );
 };
-
-// napisac obsluge bledow w prawidlowy sposob!!!
-
-// exports.home = (req, res, next) => {
-//     PartnerAccount.findAll()
-//     .then( partners => {
-//         res.send( partners );
-//     })
-//     .catch(( err => {
-//         console.error( 'Error: ' + err );
-//     } ));
-// };
