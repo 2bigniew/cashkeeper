@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const Helpers = require('../Helpers/Helpers');
 
 module.exports = function(passport, user) {
  
@@ -50,7 +51,7 @@ module.exports = function(passport, user) {
                     firstname: req.body.firstname,
                     lastname: req.body.lastname,
                     is_deleted: false,
-                    created_at: '2018-12-28 19:24:57',
+                    created_at: Helpers.getTimestamp(),
                     bank_account: req.body.bank_account,
                 };
 

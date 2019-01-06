@@ -54,7 +54,7 @@ app.get('/', (req, res, next) => res.redirect('/home'));
 app.use('/home', IndexRouter);
 app.use('/', AuthRouter);
 app.use('/user', UserRouter);
-app.use('/partners', PartnerRouter);
+app.use('/partner', PartnerRouter);
 app.use('/quotes', MoneyQuotesRouter);
 app.use('/loan', LoanDetailsRouter);
 app.use('/loan-payments', LoanPaymentsDetailsRouter);
