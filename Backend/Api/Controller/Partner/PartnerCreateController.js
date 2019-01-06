@@ -6,8 +6,12 @@ const Helpers = require('../../../Helpers/Helpers');
 const ErrorMsg = Helpers.errorMsg;
 const PartnerParams = require('../../../Helpers/Classes/PartnerParamsClass');
 
+exports.createPartnerAccountForm = (req, res, next) => {
+    res.render('createPartner.ejs');
+}
+
 exports.createPartnerAccount = async(req, res, next) => {
-    const partnerParams = new PartnerParams(req.session.passport.user, req.params.firstname, req.params.lastname, req.params.email);
+    const partnerParams = new PartnerParams(req.session.passport.user, req.body.firstname, req.body.lastname, req.body.email);
     const Op = Sequalize.Op;
     const errorMsg = [];
 
@@ -26,18 +30,18 @@ exports.createPartnerAccount = async(req, res, next) => {
     if (errorMsg.length > 0) {
         return res.send(errorMsg);
     }
-
+    console.log(errorMsg);
     const partnerCount = await PartnerAccount.findAndCountAll({
         where: {
             user_id: partnerParams.userId,
             firstname: {
-                [Op.like]: partnerParams.firstname
+                [Op.iLike]: partnerParams.firstname
             },
             lastname: {
-                [Op.like]: partnerParams.lastname
+                [Op.iLike]: partnerParams.lastname
             },
             email: {
-                [Op.like]: partnerParams.email
+                [Op.iLike]: partnerParams.email
             },   
         }
     });
@@ -49,21 +53,21 @@ exports.createPartnerAccount = async(req, res, next) => {
     const partnerData = {
         firstname: partnerParams.firstname,
         lastname: partnerParams.lastname,
-        street: req.params ? req.params : null,
-        number: req.params ? req.params : null,
-        local: req.params ? req.params : null,
-        city: req.params ? req.params : null,
-        country: req.params ? req.params : null,
-        mobile: req.params ? req.params : null,
+        street: req.body.street ? req.body.street : null,
+        number: req.body.number ? req.body.number : null,
+        local: req.body.local ? req.body.local : null,
+        city: req.body.city ? req.body.city : null,
+        country: req.body.country ? req.body.country : null,
+        mobile: req.body.mobile ? req.body.mobile : null,
         email: partnerParams.email,
-        bank_account: req.params ? req.params : null,
+        bank_account: req.body.bank,
         is_active: 'false',
         is_deleted: 'false',
         deleted_date: null,
-        created_at: Helpers.getTimestamp,
+        created_at: Helpers.getTimestamp(),
         user_id: partnerParams.userId,
     };
 
-    const partner = await PartnerAccount.create({partnerData});
-    res.send(patner);
+    const partner = await PartnerAccount.create(partnerData);
+    res.send(partner);
 }

@@ -23,7 +23,7 @@ exports.getPartnerDataByLastname = async(req, res, next) => {
     //     // return err; uzyc jako middleware
     // }
 
-    console.log(check(lastname).isAlpha());
+    //console.log(check(lastname).isAlpha());
     const partner = await PartnerAccount.findAll({
         where: {
             user_id: userId,

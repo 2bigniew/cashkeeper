@@ -51,7 +51,7 @@ module.exports = function(passport, user) {
                     firstname: req.body.firstname,
                     lastname: req.body.lastname,
                     is_deleted: false,
-                    created_at: Helpers.getTimestamp,
+                    created_at: Helpers.getTimestamp(),
                     bank_account: req.body.bank_account,
                 };
 

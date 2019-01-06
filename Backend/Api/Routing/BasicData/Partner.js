@@ -5,12 +5,27 @@ const Helpers = require('../../../Helpers/Helpers');
 
 const PartnerCotroller = require('../../Controller/Partner/PartnerController');
 const PartnerCreateController = require('../../Controller/Partner/PartnerCreateController');
+const PartnerUpdateController = require('../../Controller/Partner/PartnerUpdateController');
+const PartnerDeleteController = require('../../Controller/Partner/PartnerDeleteController');
 const errorHandler = require('../../Middleware/error');
 
+// PartnerCotroller
 router.get('/list', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(PartnerCotroller.getPartnersBasicData));
 router.get('/:lastname', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(PartnerCotroller.getPartnerDataByLastname));
-router.post('/create-partner', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(PartnerCreateController.createPartnerAccount));
-// router.put('update-partner);
+
+// PartnerCreateController
+router.get('/create/form', Helpers.isLoggedIn, PartnerCreateController.createPartnerAccountForm);
+router.post('/create', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(PartnerCreateController.createPartnerAccount));
+
+// PartnerUpdateController
+router.get('/info/form', Helpers.isLoggedIn, PartnerUpdateController.getPartnerAccountForm);
+router.post('/info', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(PartnerUpdateController.getPartnerInfo));
+router.get('/update/form', Helpers.isLoggedIn, PartnerUpdateController.updatePartnerAccountForm);
+router.post('/update', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(PartnerUpdateController.updatePatnerInfo));
+//zmienic potem na put
+
+router.get('/delete/form', Helpers.isLoggedIn, PartnerDeleteController.deletePartnerForm);
+router.post('/delete', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(PartnerDeleteController.deletePartner));
 // router.delete('delete-partner');
 
 module.exports = router;
