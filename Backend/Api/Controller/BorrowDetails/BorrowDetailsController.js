@@ -88,3 +88,15 @@ exports.getBorrowsForPartnerByDate = async(req, res, next) => {
 
     res.send(borrows);
 }
+
+exports.getSumOfAll = async(req, res, next) => {
+    const userId = req.session.passport.user;
+
+    const borrowsSum = await BorrowDetails.sum('value', {
+        where: {
+            user_id: userId
+        }
+    });
+
+    res.json(borrowsSum);
+}

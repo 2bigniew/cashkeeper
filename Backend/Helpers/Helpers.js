@@ -17,9 +17,12 @@ exports.shouldShowLoginOrCreateAccout = (req, res, next) => {
 exports.errorMsg = {
     firstnameFieldMsg: 'Nieprawidlowy znak. Pole imie powinno zawierac jedynie litery',
     lastnameFieldMsg: 'Nieprawidlowy znak. Pole nazwisko powinno zawierac jedynie litery',
-    emailFieldMsg: 'Blad w adresie email. Adres email powinien wygladac w nastepujacy sposob: \"prawidlowy@email.com\"',
-    notMinMsg: (fieldname, min) => `Pole \"${fieldname}\" powinnno skladac sie z minimum ${min} znakow`,
-    notMaxMsg: (fieldname, max) => `Pole \"${fieldname}\" powinnno skladac sie z maksymalnie ${max} znakow`
+    emailFieldMsg: 'Blad w adresie email. Adres email powinien wygladac w nastepujacy sposob: "prawidlowy@email.com"',
+    requireMsg: (fieldname) => `Pole "${fieldname}" powinno zostac wypelnione`,
+    alphanumericFieldMsg: (fieldname) => `Pole "${fieldname}" powinnno skladac sie wylacznie z liter oraz cyfr`,
+    numberFieldMsg: (fieldname) => `Pole "${fieldname}" powinnno skladac sie wylacznie z cyfr oraz znaku kropki (".")`,
+    notMinMsg: (fieldname, min) => `Pole "${fieldname}" powinnno skladac sie z minimum ${min} znakow`,
+    notMaxMsg: (fieldname, max) => `Pole "${fieldname}" powinnno skladac sie z maksymalnie ${max} znakow`
 };
 
 exports.getTimestamp = () => {
@@ -33,6 +36,19 @@ exports.getTimestamp = () => {
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
+exports.getBorrowSerial = (partnerId, borrowsCount) => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1 < 10 ? '0'+(date.getMonth() + 1) : date.getMonth() + 1;
+    return `B/${partnerId}/${1+borrowsCount}/${month}/${year}`;
+}
+
+exports.getLoanSerial = (partnerId, loansCount) => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1 < 10 ? '0'+(date.getMonth() + 1) : date.getMonth() + 1;
+    return `L/${partnerId}/${1+loansCount}/${month}/${year}`;
+}
 // exports.isName = (char, fieldname) => {
 //     const regExpIn = /^[A-Z]{1}[a-z]{1,254}$/;
 //     const isName = regExpIn.test(char);
