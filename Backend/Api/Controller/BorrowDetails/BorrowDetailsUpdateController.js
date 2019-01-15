@@ -3,7 +3,7 @@ const BorrowDetails = require('../../../Database/Models/BorrowDetails');
 exports.updateBorrow = async(req, res, next) => {
     const userId = req.session.passport.user;
     const partnerId = req.body.partner;
-    const borrowId = req.body.serial;
+    const borrowId = req.body.borrow;
 
     const borrow = await BorrowDetails.findOne({
         where: {

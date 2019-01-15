@@ -4,7 +4,7 @@ const UserAccount = require('./UserAccount');
 const PartnerAccount = require('./PartnerAccount');
 
 const LoanDetails = con.define('LoanDetails', {
-    loan_id: { type: Sequalize.INTEGER, primaryKey: true },
+    loan_id: { type: Sequalize.INTEGER, primaryKey: true, autoIncrement: true },
     loan_serial: Sequalize.STRING,
     loan_date: Sequalize.DATEONLY,
     purpose: Sequalize.TEXT,
