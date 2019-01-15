@@ -28,8 +28,8 @@ exports.getBorrowsForPartner = async(req, res, next) => {
     const userId = req.session.passport.user;
     const Op = Sequalize.Op;
 
-    PartnerAccount.hasMany(BorrowDetails, {foreignKey: 'user_id'});
-    BorrowDetails.belongsTo(PartnerAccount, {foreignKey: 'user_id'});
+    PartnerAccount.hasMany(BorrowDetails, {foreignKey: 'partner_id'});
+    BorrowDetails.belongsTo(PartnerAccount, {foreignKey: 'partner_id'});
 
     const borrows = await BorrowDetails.findAll({
         where: {

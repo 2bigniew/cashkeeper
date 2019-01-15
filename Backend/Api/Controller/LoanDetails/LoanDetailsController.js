@@ -1,5 +1,16 @@
 const LoanDetails = require('../../../Database/Models/LoanDetails');
+const PartnerAccount = require('../../../Database/Models/PartnerAccount');
+const Helpers = require('../../../Helpers/Helpers');
 
+const Sequalize = require('sequelize');
+
+exports.getLoansForPartnerForm = (req, res, next) => {
+    res.render('getLoans.ejs');
+}
+
+exports.getLoansForPartnerByDateForm = (req, res, next) => {
+    res.render('getLoansByDate.ejs');
+}
 
 exports.getLoanDetailsData = async(req, res, next) => {
     const userId = req.session.passport.user;
@@ -11,4 +22,79 @@ exports.getLoanDetailsData = async(req, res, next) => {
     });
 
     res.send(loans);
+}
+
+exports.getLoansForPartner = async(req, res, next) => {
+    const userId = req.session.passport.user;
+    const Op = Sequalize.Op;
+
+    PartnerAccount.hasMany(LoanDetails, {foreignKey: 'partner_id'});
+    LoanDetails.belongsTo(PartnerAccount, {foreignKey: 'partner_id'});
+
+    const loans = await LoanDetails.findAll({
+        where: {
+            user_id: userId,
+            purpose: {
+                [Op.iLike]: `%${req.query.purpose}%`
+            },
+        }, 
+        include: [{
+            model: PartnerAccount,
+            where: {
+                firstname: {
+                    [Op.iLike]: `%${req.query.firstname}%`
+                },
+                lastname: {
+                    [Op.iLike]: `%${req.query.lastname}%`
+                } 
+            }
+        }]
+    });
+
+    res.send(loans);
+}
+
+exports.getLoansForPartnerByDate = async(req, res, next) => {
+    const userId = req.session.passport.user;
+    const Op = Sequalize.Op;
+
+    PartnerAccount.hasMany(LoanDetails, {foreignKey: 'partner_id'});
+    LoanDetails.belongsTo(PartnerAccount, {foreignKey: 'partner_id'});
+    const dateFrom = req.query['date-from'] ? req.query['date-from'] : req.user.created_at;
+    const dateTo = req.query['date-to']? req.query['date-to'] : Helpers.getTimestamp();
+
+    const loans = await LoanDetails.findAll({
+        where: {
+            user_id: userId,
+            created_at: {
+                [Op.gte]: dateFrom,
+                [Op.lte]: dateTo
+            },
+        },
+        include: [{
+            model: PartnerAccount,
+            where: {
+                firstname: {
+                    [Op.iLike]: `%${req.query.firstname}%`
+                },
+                lastname: {
+                    [Op.iLike]: `%${req.query.lastname}%`
+                } 
+            }
+        }]
+    });
+
+    res.json(loans);
+}
+
+exports.getSumOfAll = async(req, res, next) => {
+    const userId = req.session.passport.user;
+
+    const loanSum = await LoanDetails.sum('value', {
+        where: {
+            user_id: userId
+        }
+    });
+
+    res.json(loanSum);
 }
