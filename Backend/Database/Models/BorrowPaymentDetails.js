@@ -4,7 +4,7 @@ const UserAccount = require('./UserAccount');
 const BorrowDetails = require('./BorrowDetails');
 
 const BorrowPaymentDetails = con.define('BorrowPaymentDetails', {
-    borrow_payment_details_id: { type: Sequalize.INTEGER, primaryKey: true },
+    borrow_payment_details_id: { type: Sequalize.INTEGER, primaryKey: true, autoIncrement: true },
     payment_date: Sequalize.DATEONLY,
     payment_value: Sequalize.DOUBLE,
     user_id: {

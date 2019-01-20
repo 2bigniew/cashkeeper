@@ -57,9 +57,9 @@ app.use('/user', UserRouter);
 app.use('/partner', PartnerRouter);
 app.use('/quotes', MoneyQuotesRouter);
 app.use('/loan', LoanDetailsRouter);
-app.use('/loan-payments', LoanPaymentsDetailsRouter);
+app.use('/loan-payment', LoanPaymentsDetailsRouter);
 app.use('/borrow', BorrowDetailsRouter);
-app.use('/borrow-payments', BorrowPaymentsDetailsRouter);
+app.use('/borrow-payment', BorrowPaymentsDetailsRouter);
 
 //Errors **************************************************************
 
