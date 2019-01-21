@@ -75,4 +75,10 @@ const UserAccount = require('./Database/Models/UserAccount');
 require('./Passport/localCreateAccount')(passport, UserAccount);
 require('./Passport/localLogIn')(passport, UserAccount);
 
+// do testow:
+// wszystkie akcje typu get zapisuja rezultat do pliku, 
+// takze po skonconych testach mamy 1 wielki plik dla wszystkich akcji,
+// z informacja czy test sie udal, oraz jakie wyniki zostaly zwrocone
+// skorzystac z fs
+
 module.exports = app; 

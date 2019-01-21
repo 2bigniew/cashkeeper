@@ -12,5 +12,5 @@ exports.deleteBorrowPaymentDetails = async(req, res, next) => {
 
     await borrowPayment.destroy();
 
-    res.json(borrowPayments);
+    res.json(borrowPayment);
 }
