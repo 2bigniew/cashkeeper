@@ -20,5 +20,5 @@ exports.updateBorrowPaymentDetails = async(req, res, next) => {
 
     await borrowPayment.save();
 
-    res.json(borrowPayments);
+    res.json(borrowPayment);
 }
