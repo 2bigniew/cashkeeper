@@ -62,9 +62,7 @@ exports.getBorrowsForPartnerByDate = async(req, res, next) => {
     BorrowDetails.belongsTo(PartnerAccount, {foreignKey: 'partner_id'});
     const dateFrom = req.query['date-from'] ? req.query['date-from'] : req.user.created_at;
     const dateTo = req.query['date-to']? req.query['date-to'] : Helpers.getTimestamp();
-    console.log(dateFrom);
-    console.log(dateTo);
-
+    
     const borrows = await BorrowDetails.findAll({
         where: {
             user_id: userId,

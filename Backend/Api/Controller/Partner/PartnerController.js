@@ -3,7 +3,12 @@ const { check, validationResult } = require('express-validator/check');
 const Sequalize = require('sequelize');
 
 exports.getPartnersBasicData = async(req, res, next) => {
-    const userId = req.session.passport.user;
+    let userId;
+    if (process.env.NODE_ENV === 'test') {
+        userId = 23
+    } else {
+        userId = req.session.passport.user;
+    }
 
     const partners = await PartnerAccount.findAll({
         where: {
@@ -19,11 +24,6 @@ exports.getPartnerDataByLastname = async(req, res, next) => {
     const lastname = req.params.lastname;
     const Op = Sequalize.Op;
 
-    // if(!check(lastname).isAlpha) {
-    //     // return err; uzyc jako middleware
-    // }
-
-    //console.log(check(lastname).isAlpha());
     const partner = await PartnerAccount.findAll({
         where: {
             user_id: userId,

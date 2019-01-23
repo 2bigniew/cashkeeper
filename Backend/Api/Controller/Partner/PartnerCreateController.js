@@ -30,7 +30,7 @@ exports.createPartnerAccount = async(req, res, next) => {
     if (errorMsg.length > 0) {
         return res.send(errorMsg);
     }
-    console.log(errorMsg);
+
     const partnerCount = await PartnerAccount.findAndCountAll({
         where: {
             user_id: partnerParams.userId,

@@ -45,3 +45,22 @@ values
 (6, 1, 'serial/example/6/3', '2018-05-19', 'pay bills', 210.00, false);
 
 -- *****************************************************************************
+
+delete from user_account where user_id <> 1;
+delete from user_info where user_id <> 1;
+delete from borrow_payment_details;
+delete from loan_payment_details;
+delete from borrow_details;
+delete from loan_details;
+delete from partner_account;
+delete from template_mail;
+delete from template_sms;
+delete from sms_messages;
+delete from mail_messages;
+-- delete from money_quotes;
+
+update user_account set
+login = '2bigniew',
+"password" = 'eafe2d20ba29ab327e7143c1931073e410215ffee5d895692e89225db354e4fe'
+where user_id = 1;
+
