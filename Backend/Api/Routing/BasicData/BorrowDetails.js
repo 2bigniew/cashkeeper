@@ -21,11 +21,9 @@ router.get('/create/form', Helpers.isLoggedIn, BorrowDetailsCreateController.cre
 router.post('/create', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(BorrowDetailsCreateController.createBorrow));
 
 // BorrowDetailsUpdateController
-router.post('/complete', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(BorrowDetailsUpdateController.updateBorrow));
+router.put('/complete', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(BorrowDetailsUpdateController.updateBorrow));
 
 // BorrowDetailsDeleteController
-router.get('/delete', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(BorrowDetailsDeleteController.deleteBorrow));
-
-// lista sumy wszystkich
+router.delete('/delete', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(BorrowDetailsDeleteController.deleteBorrow));
 
 module.exports = router;

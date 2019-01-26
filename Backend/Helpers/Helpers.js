@@ -53,6 +53,10 @@ exports.getLoanSerial = (partnerId, loansCount) => {
     const month = date.getMonth() + 1 < 10 ? '0'+(date.getMonth() + 1) : date.getMonth() + 1;
     return `L/${partnerId}/${1+loansCount}/${month}/${year}`;
 }
+
+exports.getOnlyFileName = (nodeFilename) => {
+    return nodeFilename.split('/')[nodeFilename.split('/').length-1];
+}
 // exports.isName = (char, fieldname) => {
 //     const regExpIn = /^[A-Z]{1}[a-z]{1,254}$/;
 //     const isName = regExpIn.test(char);

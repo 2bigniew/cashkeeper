@@ -21,11 +21,10 @@ router.post('/create', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(Partner
 router.get('/info/form', Helpers.isLoggedIn, PartnerUpdateController.getPartnerAccountForm);
 router.post('/info', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(PartnerUpdateController.getPartnerInfo));
 router.get('/update/form', Helpers.isLoggedIn, PartnerUpdateController.updatePartnerAccountForm);
-router.post('/update', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(PartnerUpdateController.updatePatnerInfo));
-//zmienic potem na put
+router.put('/update', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(PartnerUpdateController.updatePatnerInfo));
 
+//PartnerDeleteController
 router.get('/delete/form', Helpers.isLoggedIn, PartnerDeleteController.deletePartnerForm);
-router.post('/delete', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(PartnerDeleteController.deletePartner));
-// router.delete('delete-partner');
+router.delete('/delete', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(PartnerDeleteController.deletePartner));
 
 module.exports = router;

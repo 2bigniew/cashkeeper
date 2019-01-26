@@ -53,13 +53,13 @@ app.use((req, res, next) => {
     next();
 });
 
-con.authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully');
-    })
-    .catch(( err ) => {
-        console.error('Unable to connect to the database:', err);
-    });
+// con.authenticate()
+//     .then(() => {
+//         console.log('Connection has been established successfully');
+//     })
+//     .catch(( err ) => {
+//         console.error('Unable to connect to the database:', err);
+//     });
 
 //Routes **************************************************************
 

@@ -5,7 +5,7 @@ const Sequalize = require('sequelize');
 exports.getPartnersBasicData = async(req, res, next) => {
     let userId;
     if (process.env.NODE_ENV === 'test') {
-        userId = 23
+        userId = 23;
     } else {
         userId = req.session.passport.user;
     }
@@ -16,11 +16,18 @@ exports.getPartnersBasicData = async(req, res, next) => {
         }
     });
 
+    res.status(200);
     res.send(partners);
 }
 
 exports.getPartnerDataByLastname = async(req, res, next) => {
-    const userId = req.session.passport.user;
+    let userId;
+    if (process.env.NODE_ENV === 'test') {
+        userId = 23;
+    } else {
+        userId = req.session.passport.user;
+    }
+
     const lastname = req.params.lastname;
     const Op = Sequalize.Op;
 
@@ -33,5 +40,9 @@ exports.getPartnerDataByLastname = async(req, res, next) => {
         }
     });
 
-    res.send(partner);
+    res.status(200);
+    const response = {
+        data: partner
+    }
+    res.json(response);
 }

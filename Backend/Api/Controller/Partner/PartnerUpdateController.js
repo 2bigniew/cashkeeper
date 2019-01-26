@@ -53,7 +53,13 @@ exports.getPartnerInfo = async(req, res, next) => {
 }
 
 exports.updatePatnerInfo = async(req, res, next) => {
-    const userId = req.session.passport.user;
+    let userId;
+    if (process.env.NODE_ENV === 'test') {
+        userId = 23;
+    } else {
+        userId = req.session.passport.user;
+    }
+
     const partnerId = req.body.partnerid;
     const reqBody = req.body;
     const updatedData = {};
@@ -66,7 +72,7 @@ exports.updatePatnerInfo = async(req, res, next) => {
     });
     
     for (let key in reqBody) {
-        if (reqBody[key] !== '') {
+        if (reqBody[key] !== '' && key !== 'partnerid') {
             updatedData[key] = reqBody[key];
         }
     }
@@ -77,5 +83,10 @@ exports.updatePatnerInfo = async(req, res, next) => {
 
     await partner.save();
 
-    res.send(partner);
+    res.status(200);
+    const response = {
+        message: 'Partner updated successfully',
+        data: partner
+    }
+    res.json(response);
 }

@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "mocha ./Test/partner.js --timeout 10000"
+    "test": "mocha ./Test/testAll.js --color --timeout 10000",
+    "testsave" : "mocha -R spec ./Test/testAll.js --timeout 10000 2>&1 | tee report.md"
   },
   "keywords": [
     "cashkeeper",

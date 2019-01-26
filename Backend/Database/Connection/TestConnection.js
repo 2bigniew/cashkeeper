@@ -10,7 +10,8 @@ const sequalize = new Sequalize(process.env.TEST_DB_NAME, process.env.TEST_DB_US
         min: 0,
         acquire: 30000,
         idle: 10000
-    }
+    },
+    logging: false
 });
 
 module.exports = sequalize;

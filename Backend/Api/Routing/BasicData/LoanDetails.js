@@ -21,10 +21,9 @@ router.get('/create/form', Helpers.isLoggedIn, LoanDetailsCreateController.creat
 router.post('/create', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(LoanDetailsCreateController.createLoan));
 
 // LoanDetailsUpdateController
-router.post('/complete', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(LoanDetailsUpdateController.updateLoan));
+router.put('/complete', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(LoanDetailsUpdateController.updateLoan));
 
 // LoanDetailsDeleteController
-router.get('/delete', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(LoanDetailsDeleteController.deleteLoan));
-
+router.delete('/delete', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(LoanDetailsDeleteController.deleteLoan));
 
 module.exports = router;
