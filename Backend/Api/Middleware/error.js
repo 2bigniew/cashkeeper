@@ -12,8 +12,15 @@ exports.catchAsyncErrors = (fn) => {
 
 exports.catchErrors = (err, req, res, next) => {
     res.status( err.status || 500 );
-    res.render('error', {
-        message: err.message,
-        status: err.status || 500,
-    })
+    const myError = {};
+
+    myError.status = err.status || 500;
+    myError.message = err.message;
+    myError.name = err.name;
+
+    for (prop in err) {
+        myError[prop] = err[prop];
+    }
+    
+    res.json(myError);
 }

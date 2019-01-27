@@ -58,7 +58,6 @@ module.exports = function(passport, user) {
             return done(null, userInfo);
 
         } catch(err) {
-            // console.log("Error:", err);
             return done(null, false, {
                 message: 'Something went wrong with your Signin'
             });

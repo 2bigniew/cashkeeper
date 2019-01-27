@@ -1,15 +1,19 @@
-const Sequalize = require('sequelize');
-const sequalize = new Sequalize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
-    host: 'localhost',
-    dialect: 'postgres',
-    operatorsAliases: false,
-
-    pool: {
-        max: 5,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
-    }
-});
+let sequalize;
+switch(process.env.NODE_ENV) {
+    case 'development':
+        sequalize = require('./DevConnection');
+        console.log(process.env.NODE_ENV);
+        break;
+    case 'production':
+        sequalize = require('./ProdConnection');
+        console.log(process.env.NODE_ENV);
+        break;
+    case 'test':
+        sequalize = require('./TestConnection');
+        console.log(process.env.NODE_ENV);
+        break;
+    default:
+        console.log('Please, choose enviroment type');
+}
 
 module.exports = sequalize;

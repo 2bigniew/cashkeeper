@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
 const session = require('express-session');
+const cors = require('cors');
+const corsConfig = require('./Config/corsConfig');
 const con = require('./Database/Connection/Connetion');
 
 const ErrorsHandler = require('./Api/Middleware/error');
@@ -38,15 +40,26 @@ app.use(session({
 }));
 
 app.use(passport.initialize());
-app.use(passport.session())
+app.use(passport.session());
+// app.use(cors(corsConfig));
+app.use((req, res, next) => {
+    res.setHeader('origin', 'http://127.0.0.1:8080');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('preflightContinue', false);
+    res.setHeader('Accept-Charset', 'utf-8, iso-8859-13');
+    res.setHeader('Accept-Language', 'pl, en-us');
+    res.setHeader('Content-Language', 'en, pl');
+    next();
+});
 
-con.authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully');
-    })
-    .catch(( err ) => {
-        console.error('Unable to connect to the database:', err);
-    });
+// con.authenticate()
+//     .then(() => {
+//         console.log('Connection has been established successfully');
+//     })
+//     .catch(( err ) => {
+//         console.error('Unable to connect to the database:', err);
+//     });
 
 //Routes **************************************************************
 
