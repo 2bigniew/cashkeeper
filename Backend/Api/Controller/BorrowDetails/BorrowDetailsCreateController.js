@@ -1,6 +1,7 @@
 const BorrowDetails = require('../../../Database/Models/BorrowDetails');
 const Helpers = require('../../../Helpers/Helpers');
 const validator = require('validator');
+const RouteError = require('../../../Helpers/Classes/RouteError');
 const Sequalize = require('sequelize');
 
 exports.createBorrowForm = (req, res, next) => {
@@ -20,15 +21,8 @@ exports.createBorrow = async(req, res, next) => {
     const fileName = Helpers.getOnlyFileName(__filename);
 
     if(!partnerId) {
-        res.send("Nie okreslono partnera! Musisz wybrac partnera z listy");
+        throw new RouteError(1, fileName, 25, 'Nie okreslono partnera! Musisz wybrac partnera z listy');
     }
-
-    const borrowsCount = await BorrowDetails.findAndCountAll({
-        where: {
-            user_id: userId,
-            partner_id: partnerId
-        }
-    });
 
     if(!validator.isDecimal(req.body.value)) {
         errorMsg.push(Helpers.errorMsg.numberFieldMsg('Kwota'));
@@ -43,8 +37,15 @@ exports.createBorrow = async(req, res, next) => {
     }
 
     if (errorMsg.length > 0) {
-        throw new RouteError(errorMsg.length, fileName, 39, errorMsg.join('&&'));
+        throw new RouteError(errorMsg.length, fileName, 40, errorMsg.join('&&'));
     }
+
+    const borrowsCount = await BorrowDetails.findAndCountAll({
+        where: {
+            user_id: userId,
+            partner_id: partnerId
+        }
+    });
 
     const data = {
         borrow_serial: Helpers.getBorrowSerial(partnerId, borrowsCount.count),
@@ -57,5 +58,11 @@ exports.createBorrow = async(req, res, next) => {
     };
 
     const borrows = await BorrowDetails.create(data);
-    res.json(borrows);
+    const message = 'Borrow successfully added';
+    res.status(201);
+    const response = {
+        data: borrows,
+        message: message 
+    }
+    res.json(response);
 }
