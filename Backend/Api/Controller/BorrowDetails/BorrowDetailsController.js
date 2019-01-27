@@ -13,7 +13,12 @@ exports.getBorrowsForPartnerByDateForm = (req, res, next) => {
 }
 
 exports.getBorrowsDetailsData = async(req, res, next) => {
-    const userId = req.session.passport.user;
+    let userId;
+    if (process.env.NODE_ENV === 'test') {
+        userId = 23;
+    } else {
+        userId = req.session.passport.user;
+    }
 
     const borrows = await BorrowDetails.findAll({
         where: {
@@ -21,11 +26,21 @@ exports.getBorrowsDetailsData = async(req, res, next) => {
         }
     });
 
-    res.send(borrows);
+    res.status(200);
+    const response = {
+        data: borrows
+    }
+    res.json(response);
 }
 
 exports.getBorrowsForPartner = async(req, res, next) => {
-    const userId = req.session.passport.user;
+    let userId;
+    if (process.env.NODE_ENV === 'test') {
+        userId = 23;
+    } else {
+        userId = req.session.passport.user;
+    }
+    
     const Op = Sequalize.Op;
 
     PartnerAccount.hasMany(BorrowDetails, {foreignKey: 'partner_id'});
@@ -51,11 +66,21 @@ exports.getBorrowsForPartner = async(req, res, next) => {
         }]
     });
 
-    res.send(borrows);
+    res.status(200);
+    const response = {
+        data: borrows
+    }
+    res.json(response);
 }
 
 exports.getBorrowsForPartnerByDate = async(req, res, next) => {
-    const userId = req.session.passport.user;
+    let userId;
+    if (process.env.NODE_ENV === 'test') {
+        userId = 23;
+    } else {
+        userId = req.session.passport.user;
+    }
+
     const Op = Sequalize.Op;
 
     PartnerAccount.hasMany(BorrowDetails, {foreignKey: 'partner_id'});
@@ -84,11 +109,20 @@ exports.getBorrowsForPartnerByDate = async(req, res, next) => {
         }]
     });
 
-    res.send(borrows);
+    res.status(200);
+    const response = {
+        data: borrows
+    }
+    res.json(response);
 }
 
 exports.getSumOfAll = async(req, res, next) => {
-    const userId = req.session.passport.user;
+    let userId;
+    if (process.env.NODE_ENV === 'test') {
+        userId = 23;
+    } else {
+        userId = req.session.passport.user;
+    }
 
     const borrowsSum = await BorrowDetails.sum('value', {
         where: {
@@ -96,5 +130,9 @@ exports.getSumOfAll = async(req, res, next) => {
         }
     });
 
-    res.json(borrowsSum);
+    res.status(200);
+    const response = {
+        data: borrowsSum
+    }
+    res.json(response);
 }

@@ -60,6 +60,31 @@ exports.updatePatnerInfo = async(req, res, next) => {
         userId = req.session.passport.user;
     }
 
+    const errorMsg = [];
+    const fileName = Helpers.getOnlyFileName(__filename);
+
+    if (req.body.firstname) {
+        if (!validator.isAlpha(req.body.firstname)) {
+            errorMsg.push(ErrorMsg.firstnameFieldMsg);
+        }
+    }
+    
+    if (req.body.lastname) {
+        if (!validator.isAlpha(req.body.lastname)) {
+            errorMsg.push(ErrorMsg.lastnameFieldMsg);
+        } 
+    }
+
+    if (req.body.email) {
+        if(!validator.isEmail(req.body.email)) {
+            errorMsg.push(ErrorMsg.emailFieldMsg);
+        }  
+    }
+
+    if (errorMsg.length > 0) {
+        throw new RouteError(errorMsg.length, fileName, 38, errorMsg.join('&&'));
+    }
+
     const partnerId = req.body.partnerid;
     const reqBody = req.body;
     const updatedData = {};

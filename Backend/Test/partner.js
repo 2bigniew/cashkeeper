@@ -34,7 +34,7 @@ describe('/GET Partner', () => {
                 should.exist(res);
                 res.should.have.status(200);
                 res.body.should.be.a('array');
-                // res.body.length.should.be.eql(0);
+                res.body.length.should.be.eql(0);
             done();
             });
     });
@@ -125,7 +125,7 @@ describe('/POST Partner', () => {
             });
     });
 
-    it('It should not POST  if Partner exist', (done) => {
+    it('It should not POST if Partner exist', (done) => {
         const partner = {
             firstname: 'Roberto',
             lastname: 'Firmino',
@@ -202,7 +202,7 @@ describe('/PUT Partner', () => {
                 .end((err, res) => {
                     should.not.exist(err);
                     should.exist(res);
-                    res.should.have.status(201);
+                    res.should.have.status(200);
                     res.body.should.be.a('object');
                     res.body.data.should.have.property('partner_id');
                     res.body.data.should.have.property('firstname');
@@ -213,6 +213,76 @@ describe('/PUT Partner', () => {
                 });
         });
         done();
+        
+    });
+
+    it('It should update only partner account number and city by partner_id', (done) => {
+        PartnerAccount.findOne({
+            where: {
+                firstname: 'Roberto',
+                lastname: 'Firmino'
+            }
+        }).then( partnerResponse => {
+            const partner = {
+                city: 'Liverpool',
+                bank_account: '00011122233344455566677789',
+                partnerid: partnerResponse.partner_id
+            };
+        
+            chai.request(app)
+                .put('/partner/update')
+                .send(partner)
+                .end((err, res) => {
+                    should.not.exist(err);
+                    should.exist(res);
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.data.should.have.property('partner_id');
+                    res.body.data.should.have.property('firstname');
+                    res.body.data.should.have.property('lastname');
+                    res.body.data.should.have.property('bank_account').eql('00011122233344455566677789');
+                    res.body.data.should.have.property('city');
+                    res.body.should.have.property('message').eql('Partner updated successfully');
+                });
+        });
+        done();
+        
+    });
+
+    it('It should not update partner data by partner_id with not alpha type firstname and lastname, or not email type email input', (done) => {
+        PartnerAccount.findOne({
+            where: {
+                firstname: 'Roberto',
+                lastname: 'Firmino'
+            }
+        }).then( partnerResponse => {
+            const partner = {
+                firstname: '2345',
+                lastname: 'UFir__oomino',
+                street: 'UAnfield Road',
+                number: 'UL4',
+                local: 'U0TH',
+                city: 'ULiverpool',
+                country: 'UUnited Kingdom',
+                mobile: 'U123456798',
+                email: 'Ubobbyfirminolfc.com',
+                bank_account: 'U00011122233344455566677789',
+                partnerid: partnerResponse.partner_id
+            };
+        
+            chai.request(app)
+            .post('/partner/create')
+            .send(partner)
+            .end((err, res) => {
+                should.exist(res);
+                res.should.have.status(500);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message');
+                res.body.should.have.property('fileName');
+                res.body.should.have.property('name').eql('RouteError');
+                done();
+            });
+        });
         
     });
 });

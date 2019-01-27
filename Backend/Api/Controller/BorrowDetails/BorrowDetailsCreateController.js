@@ -8,9 +8,16 @@ exports.createBorrowForm = (req, res, next) => {
 }
 
 exports.createBorrow = async(req, res, next) => {
-    const userId = req.session.passport.user;
+    let userId;
+    if (process.env.NODE_ENV === 'test') {
+        userId = 23;
+    } else {
+        userId = req.session.passport.user;
+    }
+    
     const partnerId = req.body.partner;
     const errorMsg = [];
+    const fileName = Helpers.getOnlyFileName(__filename);
 
     if(!partnerId) {
         res.send("Nie okreslono partnera! Musisz wybrac partnera z listy");
@@ -36,7 +43,7 @@ exports.createBorrow = async(req, res, next) => {
     }
 
     if (errorMsg.length > 0) {
-        return res.json(errorMsg);
+        throw new RouteError(errorMsg.length, fileName, 39, errorMsg.join('&&'));
     }
 
     const data = {
