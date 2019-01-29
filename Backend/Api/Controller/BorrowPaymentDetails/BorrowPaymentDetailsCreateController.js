@@ -1,14 +1,22 @@
 const BorrowPaymentDetail = require('../../../Database/Models/BorrowPaymentDetails');
 const Helpers = require('../../../Helpers/Helpers');
 const validator = require('validator');
+const RouteError = require('../../../Helpers/Classes/RouteError');
 
 exports.crateNewPaymentForm = (req, res, next) => {
     res.render('createBorrowPayment.ejs');
 }
 
 exports.createNewPayment = async(req, res, next) => {
-    const userId = req.session.passport.user;
+    let userId;
+    if (process.env.NODE_ENV === 'test') {
+        userId = 23;
+    } else {
+        userId = req.session.passport.user;
+    }
+
     const errorMsg = [];
+    const fileName = Helpers.getOnlyFileName(__filename);
 
     if(!validator.isDecimal(req.body.payment_value)) {
         errorMsg.push(Helpers.errorMsg.numberFieldMsg('Kwota'));
@@ -19,7 +27,7 @@ exports.createNewPayment = async(req, res, next) => {
     }
 
     if (errorMsg.length > 0) {
-        return res.json(errorMsg);
+        throw new RouteError(errorMsg.length, fileName, 30, errorMsg.join('&&'));
     }
 
     const data = {
@@ -31,5 +39,12 @@ exports.createNewPayment = async(req, res, next) => {
     }
 
     const borrowPayment = await BorrowPaymentDetail.create(data);
-    res.json(borrowPayment);
+
+    const message = 'Borrow payment successfully added';
+    res.status(201);
+    const response = {
+        data: borrowPayment,
+        message: message 
+    }
+    res.json(response);
 }
