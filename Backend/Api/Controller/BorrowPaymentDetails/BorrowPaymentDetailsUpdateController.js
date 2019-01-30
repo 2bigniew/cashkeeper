@@ -1,7 +1,17 @@
 const BorrowPaymentDetails = require('../../../Database/Models/BorrowPaymentDetails');
+const Helpers = require('../../../Helpers/Helpers');
+const validator = require('validator');
+const RouteError = require('../../../Helpers/Classes/RouteError');
 
 exports.updateBorrowPaymentDetails = async(req, res, next) => {
-    const userId = req.session.passport.user;
+    let userId;
+    if (process.env.NODE_ENV === 'test') {
+        userId = 23;
+    } else {
+        userId = req.session.passport.user;
+    };
+
+    const fileName = Helpers.getOnlyFileName(__filename)
 
     const borrowPayment = await BorrowPaymentDetails.findOne({
         where: {
@@ -15,10 +25,19 @@ exports.updateBorrowPaymentDetails = async(req, res, next) => {
     }
 
     if (req.body.payment_value) {
+        if(!validator.isDecimal(req.body.payment_value)) {
+            throw new RouteError(1, fileName, 25, 'Kwota powinna skladac sie wylacznie z liczb oraz znaku kropki');
+        };
         borrowPayment.payment_value = req.body.payment_value
     }
 
     await borrowPayment.save();
 
-    res.json(borrowPayment);
+    const message = 'Borrow payment updated successfully';
+    res.status(200);
+    const response = {
+        data: borrowPayment,
+        message: message 
+    }
+    res.json(response);
 }

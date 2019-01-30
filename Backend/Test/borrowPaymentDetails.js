@@ -140,3 +140,63 @@ describe('/POST Borrow Payment Details', () => {
         });
     });
 });
+
+describe('/PUT Borrow payment details', () => {
+    it('It should not update payment with not decimal payment value', (done) => {
+        BorrowDetails.findOne({
+            where: {
+                purpose: 'Buy new Nikes',
+                value: '500'
+            }
+        }).then( borrowResponse => {
+            const borrowPayment = {
+                payment_value: '133,00',
+                borrow: borrowResponse.borrow_id,
+            };
+
+            chai.request(app)
+            .put('/borrow-payment/update')
+            .send(borrowPayment)
+            .end((err, res) => {
+                should.exist(res);
+                res.should.have.status(500);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message');
+                res.body.should.have.property('name').eql('RouteError');
+                done();
+            });
+        });
+    });
+
+    it('It should update payment with payment value or payment date', (done) => {
+        BorrowDetails.findOne({
+            where: {
+                purpose: 'Buy new Nikes',
+                value: '500'
+            }
+        }).then( borrowResponse => {
+            const borrowPayment = {
+                payment_value: '133.00',
+                payment_date: Helpers.getTimestamp(),
+                borrow: borrowResponse.borrow_id,
+            };
+
+            chai.request(app)
+            .put('/borrow-payment/update')
+            .send(borrowPayment)
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.data.should.have.property('user_id');
+                res.body.data.should.have.property('payment_date');
+                res.body.data.should.have.property('created_at');
+                res.body.data.should.have.property('borrow_id');
+                res.body.data.should.have.property('payment_value').eql('133.00');
+                res.body.should.have.property('message').eql('Borrow payment updated successfully');
+                done();
+            });
+        });
+    });
+});

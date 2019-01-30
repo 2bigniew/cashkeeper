@@ -15,7 +15,7 @@ describe('/DELETE Borrow payment', () => {
     it('It should delete borrow payment by borrow_payment_details_id', (done) => {
         BorrowPaymentDetails.findOne({
             where: {
-                payment_value: '123.00'
+                payment_value: '133.00'
             }
         }).then( borrowPaymentResponse => {
             const borrow = {
