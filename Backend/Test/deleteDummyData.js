@@ -7,8 +7,38 @@ const should = chai.should();
 
 const PartnerAccount = require('../Database/Models/PartnerAccount');
 const BorrowDetails = require('../Database/Models/BorrowDetails');
+const BorrowPaymentDetails = require('../Database/Models/BorrowPaymentDetails');
 
 chai.use(chaiHttp)
+
+describe('/DELETE Borrow payment', () => {
+    it('It should delete borrow payment by borrow_payment_details_id', (done) => {
+        BorrowPaymentDetails.findOne({
+            where: {
+                payment_value: '133.00'
+            }
+        }).then( borrowPaymentResponse => {
+            const borrow = {
+                borrowPayment: borrowPaymentResponse.borrow_payment_details_id,
+            };
+        
+            chai.request(app)
+            .delete('/borrow-payment/delete')
+            .send(borrow)
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.data.should.have.property('payment_value');
+                res.body.data.should.have.property('payment_date');
+                res.body.data.should.have.property('created_at');
+                res.body.should.have.property('message').eql('Borrow payment deleted successfully');
+                done();
+            });
+        });
+    });
+});
 
 describe('/DELETE Borrow', () => {
     it('It should delete borrow by borrow_id partner_id', (done) => {
