@@ -7,7 +7,7 @@ Start testing app...
       DELETE ALL FROM partner_account
         ✓ It should remove all from partner table
       /GET Partner
-        ✓ It should get all partners (65ms)
+        ✓ It should get all partners (57ms)
       /POST Partner
         ✓ It should not POST Partner without firstname, lastname, email
         ✓ It should not POST Partner when firstname, lastname, email is null
@@ -57,9 +57,24 @@ Start testing app...
       /PUT Loan
         ✓ It should not update loan without loan id, or partner id
         ✓ It should update loan, set complete to true
+    Loan Payment Router
+      DELETE ALL FROM loan_payment_details
+        ✓ It should remove all from loan_payment_details table
+      /GET Loan Payment Details
+        ✓ It should get loan_payment_detaild basic data
+        ✓ It should get sum of all borrow_payments
+      /POST Loan Payment Details
+        ✓ It should not post without payment date
+        ✓ It should not post if value is not decimal
+        ✓ It should post with payment date, if value is decimal
+      /PUT Loan payment details
+        ✓ It should not update payment with not decimal payment value
+        ✓ It should update payment with payment value or payment date
     Delete Dummy Data
       /DELETE Borrow payment
         ✓ It should delete borrow payment by borrow_payment_details_id
+      /DELETE Loan payment
+        ✓ It should delete loan payment by loan_payment_details_id
       /DELETE Borrow
         ✓ It should delete borrow by borrow_id partner_id
       /DELETE Loan
@@ -69,5 +84,5 @@ Start testing app...
 End of app test
 
 
-  38 passing (619ms)
+  47 passing (701ms)
 

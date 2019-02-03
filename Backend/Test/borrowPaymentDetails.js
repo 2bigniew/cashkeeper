@@ -143,15 +143,14 @@ describe('/POST Borrow Payment Details', () => {
 
 describe('/PUT Borrow payment details', () => {
     it('It should not update payment with not decimal payment value', (done) => {
-        BorrowDetails.findOne({
+        BorrowPaymentDetails.findOne({
             where: {
-                purpose: 'Buy new Nikes',
-                value: '500'
+                payment_value: '123.00',
             }
-        }).then( borrowResponse => {
+        }).then( borrowPaymentResponse => {
             const borrowPayment = {
-                payment_value: '133,00',
-                borrow: borrowResponse.borrow_id,
+                payment_value: '133,oo',
+                borrowPayment: borrowPaymentResponse.borrow_payment_details_id,
             };
 
             chai.request(app)
@@ -169,16 +168,15 @@ describe('/PUT Borrow payment details', () => {
     });
 
     it('It should update payment with payment value or payment date', (done) => {
-        BorrowDetails.findOne({
+        BorrowPaymentDetails.findOne({
             where: {
-                purpose: 'Buy new Nikes',
-                value: '500'
+                payment_value: 123,
             }
-        }).then( borrowResponse => {
+        }).then( borrowPaymentResponse => {
             const borrowPayment = {
                 payment_value: '133.00',
                 payment_date: Helpers.getTimestamp(),
-                borrow: borrowResponse.borrow_id,
+                borrowPayment: borrowPaymentResponse.borrow_payment_details_id,
             };
 
             chai.request(app)

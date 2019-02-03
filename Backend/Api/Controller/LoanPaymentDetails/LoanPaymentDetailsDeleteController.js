@@ -1,16 +1,35 @@
 const LoanPaymentDetails = require('../../../Database/Models/LoanPaymentDetails');
+const RouteError = require('../../../Helpers/Classes/RouteError');
+const Helpers = require('../../../Helpers/Helpers');
 
 exports.deleteLoanPaymentDetails = async(req, res, next) => {
-    const userId = req.session.passport.user;
+    let userId;
+    if (process.env.NODE_ENV === 'test') {
+        userId = 23;
+    } else {
+        userId = req.session.passport.user;
+    };
+
+    const loanPaymentId = req.body.loanPayment;
+    const fileName = Helpers.getOnlyFileName(__filename);
+
+    if(!loanPaymentId) {
+        throw new RouteError(1, fileName, 17, 'Nie okreslono platnosci! Musisz wybrac platnosc z listy');
+    }
 
     const loanPayment = await LoanPaymentDetails.findOne({
         where: {
             user_id: userId,
-            loan_id: req.body.loan
+            loan_payment_details_id: loanPaymentId
         }
     });
 
     await loanPayment.destroy();
 
-    res.json(loanPayment);
+    res.status(200);
+    const response = {
+        message: 'Loan payment deleted successfully',
+        data: loanPayment
+    }
+    res.json(response);
 }

@@ -2,7 +2,12 @@ const LoanPaymentDetails = require('../../../Database/Models/LoanPaymentDetails'
 
 
 exports.getLoanPaymentDetailsData = async(req, res, next) => {
-    const userId = req.session.passport.user;
+    let userId;
+    if (process.env.NODE_ENV === 'test') {
+        userId = 23;
+    } else {
+        userId = req.session.passport.user;
+    };
 
     const loanPayments = await LoanPaymentDetails.findAll({
         where: {
@@ -10,11 +15,21 @@ exports.getLoanPaymentDetailsData = async(req, res, next) => {
         }
     });
 
-    res.send(loanPayments);
+    res.status(200);
+    const response = {
+        data: loanPayments
+    }
+    res.json(response);
 }
 
 exports.getLoanPaymentDetailsByDate = async(req, res, next) => {
-    const userId = req.session.passport.user;
+    let userId;
+    if (process.env.NODE_ENV === 'test') {
+        userId = 23;
+    } else {
+        userId = req.session.passport.user;
+    };
+
     const Op = Sequalize.Op;
 
     const dateFrom = req.query['date-from'] ? req.query['date-from'] : req.user.created_at;
@@ -31,11 +46,20 @@ exports.getLoanPaymentDetailsByDate = async(req, res, next) => {
         }
     });
 
-    res.json(loanPayments);
+    rres.status(200);
+    const response = {
+        data: loanPayments
+    }
+    res.json(response);
 }
 
 exports.getSumById = async(req, res, next) => {
-    const userId = req.session.passport.user;
+    let userId;
+    if (process.env.NODE_ENV === 'test') {
+        userId = 23;
+    } else {
+        userId = req.session.passport.user;
+    };
     
     const loanPayments = await LoanPaymentDetails.sum('payment_value', {
         where: {
@@ -44,11 +68,20 @@ exports.getSumById = async(req, res, next) => {
         }
     });
 
-    res.json(loanPayments);
+    res.status(200);
+    const response = {
+        data: loanPayments
+    }
+    res.json(response);
 }
 
 exports.getSumOfAll = async(req, res, next) => {
-    const userId = req.session.passport.user;
+    let userId;
+    if (process.env.NODE_ENV === 'test') {
+        userId = 23;
+    } else {
+        userId = req.session.passport.user;
+    }
     
     const loanPayments = await LoanPaymentDetails.sum('payment_value', {
         where: {
@@ -56,5 +89,9 @@ exports.getSumOfAll = async(req, res, next) => {
         }
     });
 
-    res.json(loanPayments);
+    res.status(200);
+    const response = {
+        data: loanPayments ? loanPayments : 0
+    }
+    res.json(response);
 }

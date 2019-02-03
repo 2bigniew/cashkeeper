@@ -8,6 +8,7 @@ const should = chai.should();
 const PartnerAccount = require('../Database/Models/PartnerAccount');
 const BorrowDetails = require('../Database/Models/BorrowDetails');
 const BorrowPaymentDetails = require('../Database/Models/BorrowPaymentDetails');
+const LoanPaymentDetails = require('../Database/Models/LoanPaymentDetails');
 const LoanDetails = require('../Database/Models/LoanDetails');
 
 chai.use(chaiHttp)
@@ -35,6 +36,35 @@ describe('/DELETE Borrow payment', () => {
                 res.body.data.should.have.property('payment_date');
                 res.body.data.should.have.property('created_at');
                 res.body.should.have.property('message').eql('Borrow payment deleted successfully');
+                done();
+            });
+        });
+    });
+});
+
+describe('/DELETE Loan payment', () => {
+    it('It should delete loan payment by loan_payment_details_id', (done) => {
+        LoanPaymentDetails.findOne({
+            where: {
+                payment_value: '155.00'
+            }
+        }).then( loanPaymentResponse => {
+            const loan = {
+                loanPayment: loanPaymentResponse.loan_payment_details_id,
+            };
+        
+            chai.request(app)
+            .delete('/loan-payment/delete')
+            .send(loan)
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.data.should.have.property('payment_value');
+                res.body.data.should.have.property('payment_date');
+                res.body.data.should.have.property('created_at');
+                res.body.should.have.property('message').eql('Loan payment deleted successfully');
                 done();
             });
         });

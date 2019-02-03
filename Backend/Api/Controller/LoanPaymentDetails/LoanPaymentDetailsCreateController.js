@@ -1,14 +1,22 @@
 const LoanPaymentDetails = require('../../../Database/Models/LoanPaymentDetails');
 const Helpers = require('../../../Helpers/Helpers');
 const validator = require('validator');
+const RouteError = require('../../../Helpers/Classes/RouteError');
 
 exports.crateNewPaymentForm = (req, res, next) => {
     res.render('createLoanPayment.ejs');
 }
 
 exports.createNewPayment = async(req, res, next) => {
-    const userId = req.session.passport.user;
+    let userId;
+    if (process.env.NODE_ENV === 'test') {
+        userId = 23;
+    } else {
+        userId = req.session.passport.user;
+    };
+
     const errorMsg = [];
+    const fileName = Helpers.getOnlyFileName(__filename);
 
     if(!validator.isDecimal(req.body.payment_value)) {
         errorMsg.push(Helpers.errorMsg.numberFieldMsg('Kwota'));
@@ -19,7 +27,7 @@ exports.createNewPayment = async(req, res, next) => {
     }
 
     if (errorMsg.length > 0) {
-        return res.json(errorMsg);
+        throw new RouteError(errorMsg.length, fileName, 30, errorMsg.join('&&'));
     }
 
     const data = {
@@ -31,5 +39,13 @@ exports.createNewPayment = async(req, res, next) => {
     }
 
     const loanPayment = await LoanPaymentDetails.create(data);
-    res.json(loanPayment);
+    // console.log(loanPayment);
+
+    const message = 'Loan payment successfully added';
+    res.status(201);
+    const response = {
+        data: loanPayment,
+        message: message 
+    }
+    res.json(response);
 }
