@@ -7,11 +7,11 @@ Start testing app...
       DELETE ALL FROM partner_account
         ✓ It should remove all from partner table
       /GET Partner
-        ✓ It should get all partners (80ms)
+        ✓ It should get all partners (65ms)
       /POST Partner
         ✓ It should not POST Partner without firstname, lastname, email
         ✓ It should not POST Partner when firstname, lastname, email is null
-        ✓ It should POST Partner with firstname, lastname, email (85ms)
+        ✓ It should POST Partner with firstname, lastname, email (46ms)
         ✓ It should not POST if Partner exist
         ✓ It should get partner data by lastname
       /PUT Partner
@@ -27,10 +27,10 @@ Start testing app...
         ✓ It should not post without borrow-date or purpose
         ✓ It should not post if value is not decimal
         ✓ It should not post without partner id
-        ✓ It should POST new borrow (45ms)
+        ✓ It should POST new borrow
       /PUT Borrow
         ✓ It should not update borrow without borrow id, or partner id
-        ✓ It should update borrow, set complete to true (38ms)
+        ✓ It should update borrow, set complete to true
     Borrow Payment Router
       DELETE ALL FROM borrow_payment_details
         ✓ It should remove all from borrow_borrow_payment_detailsdetails table
@@ -41,15 +41,33 @@ Start testing app...
         ✓ It should not post without payment date
         ✓ It should not post if value is not decimal
         ✓ It should post with payment date, if value is decimal and
+      /PUT Borrow payment details
+        ✓ It should not update payment with not decimal payment value
+        ✓ It should update payment with payment value or payment date
+    Loan Router
+      DELETE ALL FROM loan_details
+        ✓ It should remove all from loan_details table
+      /GET Loan
+        ✓ It should get all loans
+      /POST Loan
+        ✓ It should not post without loan-date or purpose
+        ✓ It should not post if value is not decimal
+        ✓ It should not post without partner id
+        ✓ It should POST new borrow
+      /PUT Loan
+        ✓ It should not update loan without loan id, or partner id
+        ✓ It should update loan, set complete to true
     Delete Dummy Data
       /DELETE Borrow payment
-        ✓ It should delete borrow payment by borrow_payment_details_id (38ms)
+        ✓ It should delete borrow payment by borrow_payment_details_id
       /DELETE Borrow
         ✓ It should delete borrow by borrow_id partner_id
+      /DELETE Loan
+        ✓ It should delete loan by loan_id and partner_id
       /DELETE Partner
         ✓ It should delete partner by partner_id
 End of app test
 
 
-  27 passing (678ms)
+  38 passing (619ms)
 

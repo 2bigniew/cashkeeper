@@ -1,6 +1,7 @@
 const LoanDetails = require('../../../Database/Models/LoanDetails');
 const Helpers = require('../../../Helpers/Helpers');
 const validator = require('validator');
+const RouteError = require('../../../Helpers/Classes/RouteError');
 const Sequalize = require('sequelize');
 
 exports.createLoanForm = (req, res, next) => {
@@ -8,20 +9,20 @@ exports.createLoanForm = (req, res, next) => {
 }
 
 exports.createLoan = async(req, res, next) => {
-    const userId = req.session.passport.user;
+    let userId;
+    if (process.env.NODE_ENV === 'test') {
+        userId = 23;
+    } else {
+        userId = req.session.passport.user;
+    };
+
     const partnerId = req.body.partner;
     const errorMsg = [];
+    const fileName = Helpers.getOnlyFileName(__filename);
 
     if(!partnerId) {
-        res.send("Nie okreslono partnera! Musisz wybrac partnera z listy");
+        throw new RouteError(1, fileName, 24, 'Nie okreslono partnera! Musisz wybrac partnera z listy');
     }
-
-    const loansCount = await LoanDetails.findAndCountAll({
-        where: {
-            user_id: userId,
-            partner_id: partnerId
-        }
-    });
 
     if(!validator.isDecimal(req.body.value)) {
         errorMsg.push(Helpers.errorMsg.numberFieldMsg('Kwota'));
@@ -36,8 +37,15 @@ exports.createLoan = async(req, res, next) => {
     }
 
     if (errorMsg.length > 0) {
-        return res.json(errorMsg);
+        throw new RouteError(errorMsg.length, fileName, 40, errorMsg.join('&&'));
     }
+
+    const loansCount = await LoanDetails.findAndCountAll({
+        where: {
+            user_id: userId,
+            partner_id: partnerId
+        }
+    });
 
     const data = {
         loan_serial: Helpers.getLoanSerial(partnerId, loansCount.count),
@@ -50,5 +58,11 @@ exports.createLoan = async(req, res, next) => {
     };
 
     const loans = await LoanDetails.create(data);
-    res.json(loans);
+    const message = 'Loan successfully added';
+    res.status(201);
+    const response = {
+        data: loans,
+        message: message 
+    }
+    res.json(response);
 }

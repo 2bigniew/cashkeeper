@@ -13,7 +13,12 @@ exports.getLoansForPartnerByDateForm = (req, res, next) => {
 }
 
 exports.getLoanDetailsData = async(req, res, next) => {
-    const userId = req.session.passport.user;
+    let userId;
+    if (process.env.NODE_ENV === 'test') {
+        userId = 23;
+    } else {
+        userId = req.session.passport.user;
+    }
 
     const loans = await LoanDetails.findAll({
         where: {
@@ -21,11 +26,21 @@ exports.getLoanDetailsData = async(req, res, next) => {
         }
     });
 
-    res.send(loans);
+    res.status(200);
+    const response = {
+        data: loans
+    }
+    res.json(response);
 }
 
 exports.getLoansForPartner = async(req, res, next) => {
-    const userId = req.session.passport.user;
+    let userId;
+    if (process.env.NODE_ENV === 'test') {
+        userId = 23;
+    } else {
+        userId = req.session.passport.user;
+    };
+
     const Op = Sequalize.Op;
 
     PartnerAccount.hasMany(LoanDetails, {foreignKey: 'partner_id'});
@@ -51,11 +66,21 @@ exports.getLoansForPartner = async(req, res, next) => {
         }]
     });
 
-    res.send(loans);
+    res.status(200);
+    const response = {
+        data: loans
+    }
+    res.json(response);
 }
 
 exports.getLoansForPartnerByDate = async(req, res, next) => {
-    const userId = req.session.passport.user;
+    let userId;
+    if (process.env.NODE_ENV === 'test') {
+        userId = 23;
+    } else {
+        userId = req.session.passport.user;
+    };
+
     const Op = Sequalize.Op;
 
     PartnerAccount.hasMany(LoanDetails, {foreignKey: 'partner_id'});
@@ -84,11 +109,20 @@ exports.getLoansForPartnerByDate = async(req, res, next) => {
         }]
     });
 
-    res.json(loans);
+    res.status(200);
+    const response = {
+        data: loans
+    }
+    res.json(response);
 }
 
 exports.getSumOfAll = async(req, res, next) => {
-    const userId = req.session.passport.user;
+    let userId;
+    if (process.env.NODE_ENV === 'test') {
+        userId = 23;
+    } else {
+        userId = req.session.passport.user;
+    };
 
     const loanSum = await LoanDetails.sum('value', {
         where: {
@@ -96,5 +130,9 @@ exports.getSumOfAll = async(req, res, next) => {
         }
     });
 
-    res.json(loanSum);
+    res.status(200);
+    const response = {
+        data: loanSum
+    }
+    res.json(response);
 }
