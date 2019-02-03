@@ -3,9 +3,9 @@ const router = express.Router();
 const Helpers = require('../../../Helpers/Helpers');
 
 const LoanPaymentDetailsController = require('../../Controller/LoanPaymentDetails/LoanPaymentDetailsController');
-const LoanPaymentDetailsCreateController = require('../../Controller/BorrowPaymentDetails/BorrowPaymentDetailsCreateController');
-const LoanPaymentDetailsUpdateController = require('../../Controller/BorrowPaymentDetails/BorrowPaymentDetailsUpdateController');
-const LoanPaymentDetailsDeleteController = require('../../Controller/BorrowPaymentDetails/BorrowPaymentDetailsDeleteController');
+const LoanPaymentDetailsCreateController = require('../../Controller/LoanPaymentDetails/LoanPaymentDetailsCreateController');
+const LoanPaymentDetailsUpdateController = require('../../Controller/LoanPaymentDetails/LoanPaymentDetailsUpdateController');
+const LoanPaymentDetailsDeleteController = require('../../Controller/LoanPaymentDetails/LoanPaymentDetailsDeleteController');
 const errorHandler = require('../../Middleware/error');
 
 router.get('/list', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(LoanPaymentDetailsController.getLoanPaymentDetailsData));

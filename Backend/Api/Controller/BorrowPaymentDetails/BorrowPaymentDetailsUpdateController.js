@@ -11,12 +11,13 @@ exports.updateBorrowPaymentDetails = async(req, res, next) => {
         userId = req.session.passport.user;
     };
 
-    const fileName = Helpers.getOnlyFileName(__filename)
+    const fileName = Helpers.getOnlyFileName(__filename);
+    const borrowPaymentId = req.body.borrowPayment;
 
     const borrowPayment = await BorrowPaymentDetails.findOne({
         where: {
             user_id: userId,
-            borrow_id: req.body.borrow
+            borrow_payment_details_id: borrowPaymentId
         }
     });
 
@@ -26,7 +27,7 @@ exports.updateBorrowPaymentDetails = async(req, res, next) => {
 
     if (req.body.payment_value) {
         if(!validator.isDecimal(req.body.payment_value)) {
-            throw new RouteError(1, fileName, 25, 'Kwota powinna skladac sie wylacznie z liczb oraz znaku kropki');
+            throw new RouteError(1, fileName, 30, 'Kwota powinna skladac sie wylacznie z liczb oraz znaku kropki');
         };
         borrowPayment.payment_value = req.body.payment_value
     }

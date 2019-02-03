@@ -11,11 +11,10 @@ exports.deleteBorrowPaymentDetails = async(req, res, next) => {
     }
 
     const borrowPaymentId = req.body.borrowPayment;
-    const errorMsg = [];
     const fileName = Helpers.getOnlyFileName(__filename);
 
     if(!borrowPaymentId) {
-        throw new RouteError(1, fileName, 19, errorMsg.join('Nie okreslono platnosci! Musisz wybrac platnosc z listy'));
+        throw new RouteError(1, fileName, 17, 'Nie okreslono platnosci! Musisz wybrac platnosc z listy');
     }
 
     const borrowPayment = await BorrowPaymentDetails.findOne({
