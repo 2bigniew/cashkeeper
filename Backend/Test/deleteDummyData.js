@@ -8,6 +8,7 @@ const should = chai.should();
 const PartnerAccount = require('../Database/Models/PartnerAccount');
 const BorrowDetails = require('../Database/Models/BorrowDetails');
 const BorrowPaymentDetails = require('../Database/Models/BorrowPaymentDetails');
+const LoanDetails = require('../Database/Models/LoanDetails');
 
 chai.use(chaiHttp)
 
@@ -65,6 +66,37 @@ describe('/DELETE Borrow', () => {
                 res.body.data.should.have.property('borrow_serial');
                 res.body.data.should.have.property('value');
                 res.body.should.have.property('message').eql('Borrow deleted successfully');
+                done();
+            });
+        });
+    });
+});
+
+describe('/DELETE Loan', () => {
+    it('It should delete loan by loan_id and partner_id', (done) => {
+        LoanDetails.findOne({
+            where: {
+                purpose: 'Buy PS4',
+                value: '600'
+            }
+        }).then( loanResponse => {
+            const loan = {
+                loan: loanResponse.loan_id,
+                partner: loanResponse.partner_id
+            };
+        
+            chai.request(app)
+            .delete('/loan/delete')
+            .send(loan)
+            .end((err, res) => {
+                should.not.exist(err);
+                should.exist(res);
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.data.should.have.property('loan_date');
+                res.body.data.should.have.property('loan_serial');
+                res.body.data.should.have.property('value');
+                res.body.should.have.property('message').eql('Loan deleted successfully');
                 done();
             });
         });
