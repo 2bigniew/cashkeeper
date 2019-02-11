@@ -5,7 +5,7 @@ const corsConfig = {
     "preflightContinue": false,
     "optionsSuccessStatus": 200,
     "Access-Control-Allow-Headers ": [
-        'Accept: text/html, application/xhtml+xml, text/plain',
+        'Accept: text/html, application/xhtml+xml, text/plain, application/json',
         'Accept-Charset: utf-8, iso-8859-13',
         'Accept-Encoding: gzip;q=1.0, identity; q=0.5,',
         'Accept-Language: pl, en-us',
