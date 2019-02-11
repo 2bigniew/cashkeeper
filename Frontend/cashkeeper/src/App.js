@@ -1,12 +1,26 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import Layout from './hoc/Layout/Layout';
+import classes from './App.css';
+import NonAuthView from './hoc/NonAuthView/NonAuthView';
+import AuthView from './hoc/AuthView/AuthView';
 
 class App extends Component {
+
+  state = {
+    authenticated: false
+  }
+
   render() {
+    // przekazac elementy html jako tablice z wartosciami string
     return (
-      <div className="App">
-        <h1>Hello World</h1>
+      <div className={classes.App}>
+        <Layout>
+          <AuthView isAuth={this.state.authenticated}>
+          </AuthView>
+          <NonAuthView isAuth={this.state.authenticated}>
+          </NonAuthView>
+        </Layout>
       </div>
     );
   }
