@@ -17,11 +17,10 @@ class NonAuthView extends Component {
     };
 
     randomQuotes = () => {
-        this.setState({
-            integer: Math.floor(Math.random()*9)
-        });
-        window.setInterval(() => {
-            this.randomQuotes();
+        window.setInterval(async () => {
+            this.setState({
+                integer: Math.floor(Math.random()*8)
+            });
         }, 10000);
     }
 
@@ -38,14 +37,15 @@ class NonAuthView extends Component {
         }
     }
 
-    componentDidMount(){   
+    componentDidMount() {   
         const canvas = document.querySelector('#canvas-nac');
         FrontHelpers.drawNewDiagram(canvas);
+        window.clearTimeout(this.randomQuotes);
         // dodać wew funkcji kod z obrazkiem dla starych przeglądarek
     }
 
     render() {
-        let quotesAndAut = 'cytat';
+        let quotesAndAut = '"Pieniądze są dobrym sługą, ale złym panem" - przysłowie francuskie';
         if (this.state.integer  > 0) {
             quotesAndAut = `"${this.state.quotes[this.state.integer].quote}" - ${this.state.quotes[this.state.integer].author_or_source}.`;
         }
