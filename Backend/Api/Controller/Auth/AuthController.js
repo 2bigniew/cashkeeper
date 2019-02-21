@@ -1,4 +1,6 @@
 const passport   = require('passport');
+const Helpers = require('../../../Helpers/Helpers');
+const RouteError = require('../../../Helpers/Classes/RouteError');
 
 exports.createUser = ( req, res, next ) => {
     res.render('createUser.ejs');
@@ -17,20 +19,50 @@ exports.login = ( req, res, next ) => {
     res.render('login.ejs');
 };
 
-exports.localLogIn = ( req, res, next ) => {
- 
-    passport.authenticate('local-log-in', (err, user, info) => {
-    console.log('----------------------------------------------');
-    console.log(user);
-    console.log('----------------------------------------------');
-    console.log(info);
-    req.login(user, (err) => {
-      console.log(req.session);
-      res.json(user);
-    });
-  })( req, res, next );
+// pousuwać niepotrzebne routy
+// zmienić sprawdzanie autoryzacji, z przekierowania na przesłanie jsona
+// wyrzucić przekierowanie z logouta
 
-  res.send('działa');
+exports.localCreateAcccount = ( req, res, err ) => {
+    passport.authenticate('local-create-user', (err, user, info) => {
+        const fileName = Helpers.getOnlyFileName(__filename);
+        if ( err ) {
+            throw new RouteError(1, fileName, 27, 'Somthing went wrong while try to authenticate');
+        } else if ( info ) {
+            res.status(200);
+            res.json(info);
+        } else {
+            req.login(user, ( err2 ) => {
+                if (err2) {
+                   throw new RouteError(1, fileName, 34, 'Somthing went wrong while try to authenticate'); 
+                } else {
+                    res.status(200);
+                    res.json(user); 
+                }
+            });
+        }
+    })( req, res, next );
+}
+
+exports.localLogIn = ( req, res, next ) => {
+    passport.authenticate('local-log-in', (err, user, info) => {
+        const fileName = Helpers.getOnlyFileName(__filename);
+        if( err ) {
+            throw new RouteError(1, fileName, 27, 'Somthing went wrong while try to authenticate');
+        } else if (info) {
+            res.status(200);
+            res.json(info);
+        } else {
+            req.login(user, ( err2 ) => {
+                if (err2) {
+                    throw new RouteError(1, fileName, 34, 'Somthing went wrong while try to authenticate');
+                } else {
+                    res.status(200);
+                    res.json(user);
+                }
+            });
+        }
+    })( req, res, next );
 };
 
 exports.loginSuccess = ( req, res, next ) => {

@@ -41,7 +41,7 @@ module.exports = function(passport, user) {
             if (user) {
                 req.flash('user-message', 'That login is already taken');
                 return done(null, false, {
-                    message: 'That email is already taken' // napisac przekierowanie i wiadomosc we flashu 
+                    message: 'Wybrany login jest zajęty' // napisac przekierowanie i wiadomosc we flashu 
                 })
             } else {
                 const userPassword = hashPassword;
@@ -58,7 +58,9 @@ module.exports = function(passport, user) {
                 const newUser = await User.create(data);
      
                     if (!newUser) {
-                        return done(null, false);
+                        return done(null, false, {
+                            message: 'Nie udało się utworzyć konta użytkownika'
+                        });
                     }
 
                     if (newUser) {

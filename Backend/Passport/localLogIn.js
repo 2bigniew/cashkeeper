@@ -1,7 +1,4 @@
 const crypto = require('crypto');
-const Helpers = require('../Helpers/Helpers');
-const RouteError = require('../Helpers/Classes/RouteError');
-const ErrorMsg = Helpers.errorMsg;
 
 module.exports = function(passport, user) {
 
@@ -45,14 +42,14 @@ module.exports = function(passport, user) {
             if (!user) {
                 const flashMessage = req.flash('user-message', 'User does not exist');
                 return done(null, false, {
-                    message: 'User does not exist'
+                    message: 'Użytkownik nie istnieje'
                 });
             };
 
             if(!isValidPassword(hashPassword, user.password)) {
                 const flashMessage = req.flash('user-message', 'Incorrect password');
                 return done(null, false, {
-                    message: 'Incorrect password.'
+                    message: 'Nieprawidłowe hasło'
                 });
             };
 
@@ -62,7 +59,7 @@ module.exports = function(passport, user) {
 
         } catch(err) {
             return done(null, false, {
-                message: 'Something went wrong with your Signin'
+                message: 'Something went wrong with your signin'
             });
         }
     }
