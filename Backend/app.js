@@ -43,7 +43,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 // app.use(cors(corsConfig));
 app.use((req, res, next) => {
-    res.setHeader('origin', 'http://127.0.0.1:8080');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.setHeader('preflightContinue', false);
@@ -65,14 +65,14 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res, next) => res.redirect('/home'));
 app.use('/home', IndexRouter);
-app.use('/', AuthRouter);
-app.use('/user', UserRouter);
-app.use('/partner', PartnerRouter);
-app.use('/quotes', MoneyQuotesRouter);
-app.use('/loan', LoanDetailsRouter);
-app.use('/loan-payment', LoanPaymentsDetailsRouter);
-app.use('/borrow', BorrowDetailsRouter);
-app.use('/borrow-payment', BorrowPaymentsDetailsRouter);
+app.use('/api/auth', AuthRouter);
+app.use('/api/user', UserRouter);
+app.use('/api/partner', PartnerRouter);
+app.use('/api/quotes', MoneyQuotesRouter);
+app.use('/api/loan', LoanDetailsRouter);
+app.use('/api/loan-payment', LoanPaymentsDetailsRouter);
+app.use('/api/borrow', BorrowDetailsRouter);
+app.use('/api/borrow-payment', BorrowPaymentsDetailsRouter);
 
 //Errors **************************************************************
 
@@ -87,11 +87,5 @@ const UserAccount = require('./Database/Models/UserAccount');
 
 require('./Passport/localCreateAccount')(passport, UserAccount);
 require('./Passport/localLogIn')(passport, UserAccount);
-
-// do testow:
-// wszystkie akcje typu get zapisuja rezultat do pliku, 
-// takze po skonconych testach mamy 1 wielki plik dla wszystkich akcji,
-// z informacja czy test sie udal, oraz jakie wyniki zostaly zwrocone
-// skorzystac z fs
 
 module.exports = app; 

@@ -1,30 +1,33 @@
 const crypto = require('crypto');
+const Helpers = require('../Helpers/Helpers');
+const RouteError = require('../Helpers/Classes/RouteError');
+const ErrorMsg = Helpers.errorMsg;
 
 module.exports = function(passport, user) {
 
     const LocalStrategy = require('passport-local').Strategy;
 
     passport.serializeUser(function(user, done) {
+	console.log(user);
         done(null, user.user_id);
     });
 
     passport.deserializeUser(function(id, done) {
         User.findByPk(id).then(function(user) {
             if (user) {
-                done(null, user.get());
+                done(null, user);
             } else {
                 done(user.errors, null);
             }
         });
     });
-
     passport.use('local-log-in', new LocalStrategy({
         usernameField: 'login',
         passwordField: 'password',
         passReqToCallback: true 
     },
-
     async (req, login, password, done) => {
+	console.log(req.session);
         const User = user;
         const isValidPassword = (userpass, dbpass) => userpass === dbpass;
 
