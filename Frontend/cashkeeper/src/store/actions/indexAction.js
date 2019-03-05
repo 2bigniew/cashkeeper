@@ -1,4 +1,5 @@
 export {
     getQuotes,
-    getAuthorization
+    getAuthorization,
+    getCreateAccount
 } from './homePage';

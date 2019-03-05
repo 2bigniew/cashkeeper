@@ -20,14 +20,6 @@
             justify-content: center
 }
 
-.homepage--logo {
-    font-size: 1.6rem;
-    text-align: left;
-    color: #A27FB2;
-    padding: 10px 8px;
-    margin-bottom: 20px;
-}
-
 .homepage--list {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -95,41 +87,6 @@
 .homepage--diagram {}
 
 .homepage--links-group {}
-
-.homepage--footer {
-    background: #A27FB2;
-    text-align: left;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
-
-.homepage--footer a {
-    color: white;
-    padding: 2px;
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-    font-size: .9rem;
-}
-
-.homepage--footer a:hover {
-    color: rgb(196, 13, 13);
-}
-
-.homepage--footer p {
-    color: white;
-    font-size: 1.2rem;
-    padding: 10px;
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-}
 
 @media (min-width: 600px) {
     .homepage--content {

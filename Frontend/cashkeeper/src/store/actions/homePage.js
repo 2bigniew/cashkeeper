@@ -65,3 +65,41 @@ export const getAuthorization = ( loginParam, passParam) => {
         }
     }
 }
+
+export const createAccountSuccess = (userData) => {
+    return {
+        type: actionTypes.CREATE_ACCOUNT_SUCCESS,
+        user: userData,
+        isLogged: true
+    }
+};
+
+export const createAccountFailed = (userData) => {
+    return {
+        type: actionTypes.CREATE_ACCOUNT_FAILED,
+        msg: userData,
+        isLogged: false
+    }
+};
+
+export const createAccountError = () => {
+    return {
+        type: actionTypes.CREATE_ACCOUNT_ERROR
+    }
+}
+
+export const getCreateAccount = (userDataPack) => {
+    return async dispatch => {
+        const data = userDataPack;
+        try {
+            const auth = await axios.post('/api/auth/authorization-create-account', data);
+            if (auth.data.user_id) {
+                dispatch(createAccountSuccess(auth.data));
+            } else {
+                dispatch(createAccountFailed(auth.data));
+            }
+        } catch {
+            dispatch(createAccountError());
+        }
+    }
+}

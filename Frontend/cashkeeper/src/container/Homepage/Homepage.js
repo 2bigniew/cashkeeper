@@ -50,7 +50,6 @@ class NonAuthView extends Component {
             nonAuthContent = (
                 <Aux>
                     <main className={classes.homepage}>
-                        <h1 className={classes["homepage--logo"]}>#Cashkeeper</h1>
                         <section className={classes["homepage--links-group"]}>
                             <ul className={classes["homepage--list"]}>
                                 <NavigationItem class={classes["homepage--list-item"]}
@@ -77,11 +76,6 @@ class NonAuthView extends Component {
                             </div>
                         </div>
                     </main>
-                    <footer className={classes["homepage--footer"]}>
-                        <p>Created by 2bigniew</p>
-                        <a href="https://github.com/2bigniew">Github</a>
-                        <a href="https://www.linkedin.com/in/zbigniew-stasiak/">LinkedIn</a>
-                    </footer>
                 </Aux>
             )
         } else {

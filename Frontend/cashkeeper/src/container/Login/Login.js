@@ -79,7 +79,6 @@ class Login extends Component {
         return(
             <Aux>
                 <main className={classes.login}>
-                    <h1 className={classes["login--logo"]}>#Cashkeeper</h1>
                     <section className={classes["login--section"]}>
                         <form className={classes["login--form"]}>
                             <div className={classes["login--form-row"]}>
