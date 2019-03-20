@@ -1,0 +1,30 @@
+.nav--list {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 50px;
+    background: #A27FB2;
+    margin-bottom: 10px;
+}
+
+.nav--listitem {
+    border: 1px solid white;
+    display: block;
+    height: 100%;
+    width: 25%;
+}
+
+.nav--listitem a {
+    text-decoration: none;
+    color: white;
+    padding-top: 15px;
+    box-sizing: border-box;
+    display: block;
+    height: 100%;
+    transition: .2s;
+}
+
+.nav--listitem a:hover {
+    text-decoration: underline;
+    background: rgba(255, 255, 255, 0.137);
+}

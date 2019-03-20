@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import Aux from '../../hoc/Aux/Aux';
 import classes from './CreateAccount.css';
 import Input from '../../component/UI/Input/Input';
-import axios from '../../axios_cashkeeper';
 import * as actions from '../../store/actions/indexAction';
 import checkMarkImg from '../../assets/check.png';
 
@@ -70,11 +69,11 @@ class CreateAccount extends Component {
                 touched: false,
                 inputclass: classes["ca--input"]
             },
-            bankAcount: {
+            bank_account: {
                 fieldType: 'input',
                 fieldConfig: { type: 'text', placeholder: 'Nr konta bankowego' },
                 value: '',
-                validation: { required: true, isNum: true, minLength: 8, maxLength: 20 },
+                validation: { required: true, isNum: true, minLength: 8, maxLength: 30 },
                 valid: false,
                 validMark: null,
                 touched: false,

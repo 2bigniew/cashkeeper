@@ -1,7 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 
-console.log(window.sessionStorage);
-console.log(window.sessionStorage.getItem('cashkeeperUser'));
+// console.log(window.sessionStorage.getItem('cashkeeperUser'));
 
 const initialState = {
     quotes: [
@@ -11,12 +10,11 @@ const initialState = {
             author_or_source: 'przysłowie francuskie'
         }
     ],
-    isLogged: window.sessionStorage.getItem('cashkeeperUser') ? true : false,
-    user: window.sessionStorage.getItem('cashkeeperUser') ? JSON.parse(window.sessionStorage.getItem('cashkeeperUser')) : null,
-    msg: ''
+    isLogged: window.localStorage.getItem('cashkeeperUser') ? true : false,
+    user: window.localStorage.getItem('cashkeeperUser') ? JSON.parse(window.localStorage.getItem('cashkeeperUser')) : null,
+    msg: '',
+    logoutMsg: ''
 };
-
-console.log(initialState);
 
 const setQuotes = (state, action) => {
     const oldState = {
@@ -48,7 +46,9 @@ const setUser = (state, action) => {
         },
         isLogged: action.isLogged
     };
-    window.sessionStorage.setItem('cashkeeperUser', JSON.stringify(action.user));
+    window.localStorage.setItem('cashkeeperUser', JSON.stringify(action.user));
+    window.localStorage.setItem('user_token', action.token);
+    console.log(newState);
     return newState;
 }
 
@@ -83,8 +83,9 @@ const setCreatedUser = (state, action) => {
         },
         isLogged: action.isLogged
     };
+    window.localStorage.setItem('cashkeeperUser', JSON.stringify(action.user));
+    window.localStorage.setItem('user_token', action.token);
     console.log(newState);
-    window.sessionStorage.setItem('cashkeeperUser', JSON.stringify(action.user));
     return newState;
 }
 
@@ -105,6 +106,21 @@ const setCreateAccountFailedMsg = (state, action) => {
     return newState;
 }
 
+const setUserLogout = (state, action) => {
+    const oldState = {
+        ...state
+    };
+    window.localStorage.clear();
+    const newState = {
+        ...oldState,
+        isLogged: window.localStorage.getItem('cashkeeperUser') ? true : false,
+        user: window.localStorage.getItem('cashkeeperUser') ? JSON.parse(window.localStorage.getItem('cashkeeperUser')) : null,
+        logoutMsg: action.msg,
+        msg: ''
+    };
+    return newState;
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.SET_START_QUOTES: return setQuotes(state, action);
@@ -112,6 +128,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.AUTHORIZATION_FAILED: return setAuthorizationFailedMsg(state, action);
         case actionTypes.CREATE_ACCOUNT_SUCCESS: return setCreatedUser(state, action);
         case actionTypes.CREATE_ACCOUNT_FAILED: return setCreateAccountFailedMsg(state, action);
+        case actionTypes.USER_LOGOUT: return setUserLogout(state, action);
         default: 
             return state;
     }

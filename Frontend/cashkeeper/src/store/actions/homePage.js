@@ -28,8 +28,9 @@ export const getQuotes = () => {
 export const authorizationSucces = (userData) => {
     return {
         type: actionTypes.AUTHORIZATION_SUCCES,
-        user: userData,
-        isLogged: true
+        user: userData.user,
+        isLogged: true,
+        token: userData.token
     };
 };
 
@@ -55,7 +56,8 @@ export const getAuthorization = ( loginParam, passParam) => {
         };
         try {
             const auth = await axios.post('/api/auth/authorization-login', data);
-            if (auth.data.user_id) {
+            console.log(auth);
+            if (auth.data.user.user_id) {
                 dispatch(authorizationSucces(auth.data));
             } else {
                 dispatch(authorizationFailed(auth.data));
@@ -100,6 +102,26 @@ export const getCreateAccount = (userDataPack) => {
             }
         } catch {
             dispatch(createAccountError());
+        }
+    }
+}
+
+export const userLogout = () => {
+    return async dispatch => {
+        try {
+            const logout = await axios.get('/api/auth/logout');
+            console.log(logout);
+            const message = {
+                message: logout.data.msg
+            }
+            const logoutAction = {
+                type: actionTypes.USER_LOGOUT,
+                msg: message,
+                isLogged: false
+            };
+            dispatch(logoutAction);
+        } catch {
+            // *** dopisac obsługę błędu
         }
     }
 }

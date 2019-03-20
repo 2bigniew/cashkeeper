@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
+import Navbar from '../../component/Navigation/Navbar/Navbar'
 import Aux from '../Aux/Aux';
+
 
 class AuthView extends Component {
 
@@ -9,16 +11,8 @@ class AuthView extends Component {
         if (this.props.isAuth) {
             authContent = (
                 <Aux>
-                    <p>Tu będzie widok zalogowanego użytkownika</p>
-                    <section>
-                        <p>Partnerzy</p>
-                        <p>Moje zobowiązania</p>
-                        <p>Moje pożyczki</p>
-                        <p>Historia Transkacji</p>
-                        <p>--</p>
-                        <p>Moje konto</p>
-                        <p>Wyloguj</p>
-                    </section>
+                    <Navbar /> 
+                    { this.props.children }
                 </Aux>
             )
         } else {

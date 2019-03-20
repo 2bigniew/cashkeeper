@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import { BrowserRouter } from 'react-router-dom';
 
 import homePageReducer from './store/reducer/homePage';
+import partnerReducer from './store/reducer/partner';
 
 import './index.css';
 import App from './App';
@@ -14,6 +14,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     homePage: homePageReducer,
+    partner: partnerReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(

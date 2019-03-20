@@ -1,5 +1,10 @@
 export {
     getQuotes,
     getAuthorization,
-    getCreateAccount
+    getCreateAccount,
+    userLogout
 } from './homePage';
+
+export {
+    getPartnerInfo
+} from './partner';

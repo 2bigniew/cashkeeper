@@ -7,7 +7,7 @@ import classes from './Homepage.css';
 import FrontHelpers from '../../FrotnHelpers/FrontHelpers';
 import * as actions from '../../store/actions/indexAction';
 
-class NonAuthView extends Component {
+class Homepage extends Component {
     state = {
         integer: 0
     };
@@ -52,15 +52,15 @@ class NonAuthView extends Component {
                     <main className={classes.homepage}>
                         <section className={classes["homepage--links-group"]}>
                             <ul className={classes["homepage--list"]}>
-                                <NavigationItem class={classes["homepage--list-item"]}
+                                <NavigationItem navClass={classes["homepage--list-item"]}
                                 link={'/about'}>
                                     Info
                                 </NavigationItem>
-                                <NavigationItem class={classes["homepage--list-item"]}
+                                <NavigationItem navClass={classes["homepage--list-item"]}
                                 link={'/create-account'}>
                                     Utwórz konto
                                 </NavigationItem>
-                                <NavigationItem class={classes["homepage--list-item"]}
+                                <NavigationItem navClass={classes["homepage--list-item"]}
                                 link={'/login'}>
                                     Zaloguj
                                 </NavigationItem>
@@ -103,4 +103,4 @@ const passReduxDispatchToComponentProps = (dispatch) => {
     }
 }
 
-export default connect(passReduxStateToComponentProps, passReduxDispatchToComponentProps)(NonAuthView);
+export default connect(passReduxStateToComponentProps, passReduxDispatchToComponentProps)(Homepage);

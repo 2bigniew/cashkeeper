@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import Aux from '../../hoc/Aux/Aux';
 import classes from './Login.css';
-import axios from '../../axios_cashkeeper';
 import * as actions from '../../store/actions/indexAction';
 import checkMarkImg from '../../assets/check.png';
 
@@ -18,7 +17,7 @@ class Login extends Component {
             valid: false
         },
         isValid: false,
-        disabled: true
+        disabled: false
     }
 
     formValidation = (input) => {
@@ -27,9 +26,14 @@ class Login extends Component {
         } else {
             input.valid = false;
         }
+        const updatedState = this.state;
 
         if(this.state.login.valid === true && this.state.password.valid === true) {
-            this.state.disabled = false;
+            updatedState.disabled = false;
+            this.setState({ ...updatedState });
+        } else {
+            updatedState.disabled = true;
+            this.setState({ ...updatedState });
         }
     }
 
@@ -58,6 +62,7 @@ class Login extends Component {
         const login = this.state.login.value;
         const password = this.state.password.value;
         this.props.onGetAuthorization(login, password);
+        this.props.history.push('/');
     }
 
     render() {
@@ -124,7 +129,6 @@ class Login extends Component {
                             </div>
                         </form>
                     </section>
-                    <p className={classes["login--error"]}>{this.props.errorMsg.message}</p>
                 </main>
             </Aux>
         )
@@ -133,7 +137,8 @@ class Login extends Component {
 
 const passReduxStateToComponentProps = (state) => {
     return {
-        errorMsg: state.homePage.msg
+        errorMsg: state.homePage.msg,
+        isLogged: state.homePage.isLogged
     }
 }
 
