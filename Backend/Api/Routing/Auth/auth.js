@@ -14,6 +14,8 @@ router.get('/login-fail', AuthController.loginFail);
 // https://stackoverflow.com/questions/28277094/req-session-passport-and-req-user-empty-serializeuser-and-deserializeuser-are-n
 router.post('/authorization-login', AuthController.localLogIn); 
 
+router.post('/authorization-create-account', AuthController.localCreateAcccount);
+
 router.get('/create-user', Helpers.shouldShowLoginOrCreateAccout, AuthController.createUser);
 
 router.get('/create-user-success', AuthController.createUserSuccess);

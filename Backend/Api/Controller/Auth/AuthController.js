@@ -1,6 +1,7 @@
 const passport   = require('passport');
 const Helpers = require('../../../Helpers/Helpers');
 const RouteError = require('../../../Helpers/Classes/RouteError');
+const jwt = require('jsonwebtoken');
 
 exports.createUser = ( req, res, next ) => {
     res.render('createUser.ejs');
@@ -23,7 +24,7 @@ exports.login = ( req, res, next ) => {
 // zmienić sprawdzanie autoryzacji, z przekierowania na przesłanie jsona
 // wyrzucić przekierowanie z logouta
 
-exports.localCreateAcccount = ( req, res, err ) => {
+exports.localCreateAcccount = ( req, res, next ) => {
     passport.authenticate('local-create-user', (err, user, info) => {
         const fileName = Helpers.getOnlyFileName(__filename);
         if ( err ) {
@@ -32,12 +33,13 @@ exports.localCreateAcccount = ( req, res, err ) => {
             res.status(200);
             res.json(info);
         } else {
-            req.login(user, ( err2 ) => {
+            req.login(user, { session: false }, ( err2 ) => {
                 if (err2) {
                    throw new RouteError(1, fileName, 34, 'Somthing went wrong while try to authenticate'); 
                 } else {
+                    const token = jwt.sign(user, process.env.SECRET);
                     res.status(200);
-                    res.json(user); 
+                    res.json({ user, token }); 
                 }
             });
         }
@@ -53,12 +55,15 @@ exports.localLogIn = ( req, res, next ) => {
             res.status(200);
             res.json(info);
         } else {
-            req.login(user, ( err2 ) => {
+            req.login(user, { session: false }, ( err2 ) => {
+                console.log(req.session);
+                console.log('+++++++++++++++++++++++++++++++++++++++++');
                 if (err2) {
                     throw new RouteError(1, fileName, 34, 'Somthing went wrong while try to authenticate');
                 } else {
+                    const token = jwt.sign(user, process.env.SECRET);
                     res.status(200);
-                    res.json(user);
+                    res.json({ user, token }); 
                 }
             });
         }
@@ -98,7 +103,11 @@ exports.loginFail = ( req, res, next ) => {
 
 exports.logout = function(req, res) {
     req.session.destroy(function(err) {
-        res.redirect('/home');
+        // res.redirect('/home');
+        res.status(200);
+        res.json({
+            msg: 'Nastąpiło poprawne wylogowanie z systemu.'
+        });
     });
 }
 

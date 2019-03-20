@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const Helpers = require('../Helpers/Helpers');
+const UserInfo = require('../Database/Models/UserInfo')
 
 module.exports = function(passport, user) {
  
@@ -64,6 +65,17 @@ module.exports = function(passport, user) {
                     }
 
                     if (newUser) {
+                        const userData =  {
+                            street: req.body.street ? req.body.street : null,
+                            number: req.body.number ? req.body.number : null, 
+                            local: req.body.local ? req.body.local : null,
+                            city: req.body.city ? req.body.city : null,
+                            country: req.body.country ? req.body.country : null,
+                            mobile: req.body.mobile ? req.body.mobile : null,
+                            email: req.body.email ? req.body.email : null,
+                            user_id: newUser.user_id,
+                        };
+                        const userInfo = UserInfo.create(userData);
                         req.flash('user-login', newUser.login)
                         return done(null, newUser);
                     }   

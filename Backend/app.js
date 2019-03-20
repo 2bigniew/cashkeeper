@@ -25,6 +25,17 @@ const BorrowPaymentsDetailsRouter = require('./Api/Routing/BasicData/BorrowPayme
 const app = express();
 app.set('view engine', 'ejs');
 
+//Models **************************************************************
+
+const UserAccount = require('./Database/Models/UserAccount');
+
+//Passport Strategies *************************************************
+
+require('./Passport/localCreateAccount')(passport, UserAccount);
+require('./Passport/localLogIn')(passport, UserAccount);
+require('./Passport/cashkeeperTokenGet')(passport, UserAccount);
+require('./Passport/cashkeeperTokenPost')(passport, UserAccount);
+
 // Middlware **********************************************************
 
 app.use('/static', express.static(path.join(__dirname + '/public')));
@@ -34,9 +45,12 @@ app.use(cookieParser());
 app.use(flash());
 app.use(session({
     secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {}
+    resave: true,
+    saveUninitialized: false,
+    rolling: true,
+    cookie: {
+        maxAge: 6000000
+    }
 }));
 
 app.use(passport.initialize());
@@ -78,14 +92,5 @@ app.use('/api/borrow-payment', BorrowPaymentsDetailsRouter);
 
 app.use(ErrorsHandler.notFound);
 app.use(ErrorsHandler.catchErrors);
-
-//Models **************************************************************
-
-const UserAccount = require('./Database/Models/UserAccount');
-
-//Passport Strategies *************************************************
-
-require('./Passport/localCreateAccount')(passport, UserAccount);
-require('./Passport/localLogIn')(passport, UserAccount);
 
 module.exports = app; 

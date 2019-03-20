@@ -5,6 +5,7 @@ exports.getQuotes = async(req, res, next) => {
     const data = {
         quotes: quotes,
     }
+    console.log(req.session);
     res.status(200)
     res.json(data);
 }

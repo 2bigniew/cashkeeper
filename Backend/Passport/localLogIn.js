@@ -6,6 +6,7 @@ module.exports = function(passport, user) {
 
     passport.serializeUser(function(user, done) {
 	console.log(user);
+    console.log('---------------------------------------------');
         done(null, user.user_id);
     });
 
