@@ -7,8 +7,10 @@ exports.getPartnersBasicData = async(req, res, next) => {
     if (process.env.NODE_ENV === 'test') {
         userId = 23;
     } else {
-        userId = req.session.passport.user;
+        userId = 1;
     }
+
+    console.log(req.user);
 
     const partners = await PartnerAccount.findAll({
         where: {
@@ -17,6 +19,7 @@ exports.getPartnersBasicData = async(req, res, next) => {
     });
 
     res.status(200);
+    console.log(req.session);
     res.send(partners);
 }
 

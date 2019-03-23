@@ -10,7 +10,10 @@ const PartnerDeleteController = require('../../Controller/Partner/PartnerDeleteC
 const errorHandler = require('../../Middleware/error');
 
 // PartnerCotroller
-router.get('/list', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(PartnerCotroller.getPartnersBasicData));
+router.get('/list', 
+	passport.authenticate('cashkeeper-token-get', { session: false }), 
+	errorHandler.catchAsyncErrors(PartnerCotroller.getPartnersBasicData));
+
 router.get('/:lastname', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(PartnerCotroller.getPartnerDataByLastname));
 
 // PartnerCreateController

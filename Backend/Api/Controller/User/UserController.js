@@ -2,7 +2,12 @@ const UserAccount = require('../../../Database/Models/UserAccount');
 const UserInfo = require('../../../Database/Models/UserInfo')
 
 exports.getUserBasicData = async(req, res, next) => {
-    const userId = req.session.passport.user;
+    let userId;
+    if (process.env.NODE_ENV === 'test') {
+        userId = 23;
+    } else {
+        userId = req.session.passport.user;
+    };
 
     const userAccount = await UserAccount.findByPk(userId);
     const userInfo = await UserInfo.findByPk(userId);
@@ -26,5 +31,6 @@ exports.getUserBasicData = async(req, res, next) => {
         userData[key] = el.split('=')[1];
     });
 
-    res.send(userData);
+    res.status(200);
+    res.json(userData);
 }
