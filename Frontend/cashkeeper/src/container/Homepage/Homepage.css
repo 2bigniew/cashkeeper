@@ -1,0 +1,98 @@
+/*
+#A27FB2 - jasny fiolet
+#FFDE9C - kremowy
+#AE00FF - ciemny fiolet
+#14CC74 - oczojebny zielony
+#7DB299 - matowy zielony
+*/
+
+.homepage {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+            justify-content: center
+}
+
+.homepage--list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    margin-bottom: 40px;
+}
+
+.homepage--list-item {
+    width: 25%;
+    cursor: pointer;
+    border-bottom: 2px solid #AE00FF;
+    margin: 2%;
+    -webkit-transition: .3s;
+    transition: .3s;
+}
+
+.homepage--list-item a {
+    color: #AE00FF;;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    padding: 30px 10px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+.homepage--list-item:hover {
+    background: #AE00FF;
+    border-radius: 5px;
+}
+
+.homepage--list-item:hover a {
+    color: white;
+}
+
+.homepage--content {
+    border: 4px solid rgba(125, 178, 153, 0.5);
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 57px -3px rgba(125, 178, 153, 0.5);
+    box-shadow: 0px 0px 57px -3px rgba(125, 178, 153, 0.5);
+}
+
+.homepage--catchword {
+    font-size: 1.4rem;
+    padding: 15px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+.homepage--quotes {
+    padding: 15px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    font-weight: 200;
+    letter-spacing: 1px;
+}
+
+.homepage--diagram {}
+
+.homepage--links-group {}
+
+@media (min-width: 600px) {
+    .homepage--content {
+        width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+}

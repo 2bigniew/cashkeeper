@@ -1,0 +1,61 @@
+.loader-container {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    background: rgba(235,235,235, 0.6)
+}
+
+.loader{
+    width: 10px;
+    height: 10px;
+    background-color: rgb(100,100,250);
+    border: 1px solid rgb(100,100,250);
+    border-radius: 100%;
+    display: inline-block;
+    margin: 5px;
+}
+
+.parent-loader{
+    display: block;
+    width: 100px;
+    height: 100px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+
+.ld1{
+    animation: bulk 1s linear infinite;
+}
+
+.ld2{
+    animation: bulk2 1s linear infinite;
+}
+
+.ld3{
+    animation: bulk3 1s linear infinite;
+}
+
+@keyframes bulk{
+    0%{transform: scale(1)}
+    25%{transform: scale(2)}
+    50%{transform: scale(1)}
+}
+
+@keyframes bulk2{
+    25%{transform: scale(1)}
+    50%{transform: scale(2)}
+    75%{transform: scale(1)}
+}
+
+@keyframes bulk3{
+    50%{transform: scale(1)}
+    75%{transform: scale(2)}
+    100%{transform: scale(1)}
+}
