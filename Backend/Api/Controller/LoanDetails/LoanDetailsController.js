@@ -17,7 +17,7 @@ exports.getLoanDetailsData = async(req, res, next) => {
     if (process.env.NODE_ENV === 'test') {
         userId = 23;
     } else {
-        userId = req.session.passport.user;
+        userId = req.user.dataValues.user_id;
     }
 
     const loans = await LoanDetails.findAll({
@@ -38,7 +38,7 @@ exports.getLoansForPartner = async(req, res, next) => {
     if (process.env.NODE_ENV === 'test') {
         userId = 23;
     } else {
-        userId = req.session.passport.user;
+        userId = req.user.dataValues.user_id;
     };
 
     const Op = Sequalize.Op;
@@ -78,7 +78,7 @@ exports.getLoansForPartnerByDate = async(req, res, next) => {
     if (process.env.NODE_ENV === 'test') {
         userId = 23;
     } else {
-        userId = req.session.passport.user;
+        userId = req.user.dataValues.user_id;
     };
 
     const Op = Sequalize.Op;
@@ -121,7 +121,7 @@ exports.getSumOfAll = async(req, res, next) => {
     if (process.env.NODE_ENV === 'test') {
         userId = 23;
     } else {
-        userId = req.session.passport.user;
+        userId = req.user.dataValues.user_id;
     };
 
     const loanSum = await LoanDetails.sum('value', {

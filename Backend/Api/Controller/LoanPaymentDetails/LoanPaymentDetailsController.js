@@ -6,7 +6,7 @@ exports.getLoanPaymentDetailsData = async(req, res, next) => {
     if (process.env.NODE_ENV === 'test') {
         userId = 23;
     } else {
-        userId = req.session.passport.user;
+        userId = req.user.dataValues.user_id;
     };
 
     const loanPayments = await LoanPaymentDetails.findAll({
@@ -27,7 +27,7 @@ exports.getLoanPaymentDetailsByDate = async(req, res, next) => {
     if (process.env.NODE_ENV === 'test') {
         userId = 23;
     } else {
-        userId = req.session.passport.user;
+        userId = req.user.dataValues.user_id;
     };
 
     const Op = Sequalize.Op;
@@ -58,7 +58,7 @@ exports.getSumById = async(req, res, next) => {
     if (process.env.NODE_ENV === 'test') {
         userId = 23;
     } else {
-        userId = req.session.passport.user;
+        userId = req.user.dataValues.user_id;
     };
     
     const loanPayments = await LoanPaymentDetails.sum('payment_value', {
@@ -80,7 +80,7 @@ exports.getSumOfAll = async(req, res, next) => {
     if (process.env.NODE_ENV === 'test') {
         userId = 23;
     } else {
-        userId = req.session.passport.user;
+        userId = req.user.dataValues.user_id;
     }
     
     const loanPayments = await LoanPaymentDetails.sum('payment_value', {

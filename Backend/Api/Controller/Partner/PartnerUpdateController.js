@@ -15,7 +15,7 @@ exports.getPartnerAccountForm = (req, res, next) => {
 }
 
 exports.getPartnerInfo = async(req, res, next) => {
-    const partnerParams = new PartnerParams(req.session.passport.user, req.body.firstname, req.body.lastname, req.body.email);
+    const partnerParams = new PartnerParams(req.user.dataValues.user_id, req.body.firstname, req.body.lastname, req.body.email);
     const Op = Sequalize.Op;
     const errorMsg = [];
 
@@ -57,7 +57,7 @@ exports.updatePatnerInfo = async(req, res, next) => {
     if (process.env.NODE_ENV === 'test') {
         userId = 23;
     } else {
-        userId = req.session.passport.user;
+        userId = req.user.dataValues.user_id;
     }
 
     const errorMsg = [];
