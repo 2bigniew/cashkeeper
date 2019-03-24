@@ -16,7 +16,7 @@ exports.createPartnerAccount = async(req, res, next) => {
     if (process.env.NODE_ENV === 'test') {
         userId = 23;
     } else {
-        userId = req.session.passport.user;
+        userId = req.user.dataValues.user_id;
     }
 
     // const partnerParams = new PartnerParams(userId, req.body.firstname, req.body.lastname, req.body.email);
@@ -84,5 +84,5 @@ exports.createPartnerAccount = async(req, res, next) => {
     };
     
     res.status(201);
-    res.send(response);
+    res.json(response);
 }

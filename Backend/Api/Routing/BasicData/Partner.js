@@ -14,20 +14,30 @@ router.get('/list',
 	passport.authenticate('cashkeeper-token-get', { session: false }), 
 	errorHandler.catchAsyncErrors(PartnerCotroller.getPartnersBasicData));
 
-router.get('/:lastname', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(PartnerCotroller.getPartnerDataByLastname));
+router.get('/:lastname', 
+	passport.authenticate('cashkeeper-token-get', { session: false }), 
+	errorHandler.catchAsyncErrors(PartnerCotroller.getPartnerDataByLastname));
 
 // PartnerCreateController
-router.get('/create/form', Helpers.isLoggedIn, PartnerCreateController.createPartnerAccountForm);
-router.post('/create', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(PartnerCreateController.createPartnerAccount));
+// router.get('/create/form', Helpers.isLoggedIn, PartnerCreateController.createPartnerAccountForm);
+router.post('/create', 
+	passport.authenticate('cashkeeper-token-post', { session: false }), 
+	errorHandler.catchAsyncErrors(PartnerCreateController.createPartnerAccount));
 
 // PartnerUpdateController
-router.get('/info/form', Helpers.isLoggedIn, PartnerUpdateController.getPartnerAccountForm);
-router.post('/info', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(PartnerUpdateController.getPartnerInfo));
-router.get('/update/form', Helpers.isLoggedIn, PartnerUpdateController.updatePartnerAccountForm);
-router.put('/update', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(PartnerUpdateController.updatePatnerInfo));
+// router.get('/info/form', Helpers.isLoggedIn, PartnerUpdateController.getPartnerAccountForm);
+router.post('/info', 
+	passport.authenticate('cashkeeper-token-post', { session: false }), 
+	errorHandler.catchAsyncErrors(PartnerUpdateController.getPartnerInfo));
+//router.get('/update/form', Helpers.isLoggedIn, PartnerUpdateController.updatePartnerAccountForm);
+router.put('/update', 
+	passport.authenticate('cashkeeper-token-post', { session: false }),
+	errorHandler.catchAsyncErrors(PartnerUpdateController.updatePatnerInfo));
 
 //PartnerDeleteController
-router.get('/delete/form', Helpers.isLoggedIn, PartnerDeleteController.deletePartnerForm);
-router.delete('/delete', Helpers.isLoggedIn, errorHandler.catchAsyncErrors(PartnerDeleteController.deletePartner));
+// router.get('/delete/form', Helpers.isLoggedIn, PartnerDeleteController.deletePartnerForm);
+router.delete('/delete', 
+	passport.authenticate('cashkeeper-token-post', { session: false }), 
+	errorHandler.catchAsyncErrors(PartnerDeleteController.deletePartner));
 
 module.exports = router;
