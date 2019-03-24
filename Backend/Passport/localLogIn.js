@@ -5,27 +5,31 @@ module.exports = function(passport, user) {
     const LocalStrategy = require('passport-local').Strategy;
 
     passport.serializeUser(function(user, done) {
+<<<<<<< HEAD
         console.log(user);
+=======
+	console.log(user);
+    console.log('---------------------------------------------');
+>>>>>>> BACKENDv1
         done(null, user.user_id);
     });
 
     passport.deserializeUser(function(id, done) {
         User.findByPk(id).then(function(user) {
             if (user) {
-                done(null, user.get());
+                done(null, user);
             } else {
                 done(user.errors, null);
             }
         });
     });
-
     passport.use('local-log-in', new LocalStrategy({
         usernameField: 'login',
         passwordField: 'password',
         passReqToCallback: true 
     },
-
     async (req, login, password, done) => {
+	console.log(req.session);
         const User = user;
         const isValidPassword = (userpass, dbpass) => userpass === dbpass;
 
@@ -43,14 +47,14 @@ module.exports = function(passport, user) {
             if (!user) {
                 const flashMessage = req.flash('user-message', 'User does not exist');
                 return done(null, false, {
-                    message: 'User does not exist'
+                    message: 'Użytkownik nie istnieje'
                 });
             };
 
             if(!isValidPassword(hashPassword, user.password)) {
                 const flashMessage = req.flash('user-message', 'Incorrect password');
                 return done(null, false, {
-                    message: 'Incorrect password.'
+                    message: 'Nieprawidłowe hasło'
                 });
             };
 
@@ -60,7 +64,7 @@ module.exports = function(passport, user) {
 
         } catch(err) {
             return done(null, false, {
-                message: 'Something went wrong with your Signin'
+                message: 'Something went wrong with your signin'
             });
         }
     }

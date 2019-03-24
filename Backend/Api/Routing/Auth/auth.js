@@ -11,10 +11,10 @@ router.get('/login-success', AuthController.loginSuccess);
 
 router.get('/login-fail', AuthController.loginFail);
 
-router.post('/authorization-login', passport.authenticate('local-log-in', {
-    successRedirect: '/login-success',
-    failureRedirect: '/login-fail'
-}));
+// https://stackoverflow.com/questions/28277094/req-session-passport-and-req-user-empty-serializeuser-and-deserializeuser-are-n
+router.post('/authorization-login', AuthController.localLogIn); 
+
+router.post('/authorization-create-account', AuthController.localCreateAcccount);
 
 router.get('/create-user', Helpers.shouldShowLoginOrCreateAccout, AuthController.createUser);
 
@@ -23,8 +23,8 @@ router.get('/create-user-success', AuthController.createUserSuccess);
 router.get('/create-user-fail', AuthController.createUserFail);
 
 router.post('/authorization-create-user', passport.authenticate('local-create-user', {
-    successRedirect: '/create-user-success',
-    failureRedirect: '/create-user-fail'
+    successRedirect: '/api/auth/create-user-success',
+    failureRedirect: '/api/auth/create-user-fail'
 }));
 
 router.get('/logout',AuthController.logout);
