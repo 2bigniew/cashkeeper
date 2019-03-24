@@ -1,27 +1,28 @@
 import React from 'react';
 import classes from './Row.css';
+import Button from '../Button/Button';
+import arrow from '../../../assets/bottom_arrow.png'
 
 const row = (props) => {
 
     const columnsOn = props.columnsOn
     const columnsHide =  props.columnsHide
 
-    const rowInfoListItemsOn = columnsOn.map( col => {
-        return (<li className={classes['row--info--li']}>
+    const rowInfoListItemsOn = columnsOn.map( (col, i) => {
+        return (<li className={classes['row__info__li']} key={i+col}>
             { col }
         </li>)
     });
 
-    const rowInfoListItemsHide = columnsHide.map( col => {
-        return (<li className={classes['row--info--li-hide']}>
+    const rowInfoListItemsHide = columnsHide.map( (col, i) => {
+        return (<li className={classes['row__info__li-hide']} key={i+col}>
             { col }
         </li>)
     });
 
-    let showHidenRow = false;
     const showClasses = {
-        1: classes['row--hide'],
-        2: classes['row--show']
+        1: classes['row__hide'],
+        2: classes['row__show']
     };
 
     let ii = 1;
@@ -32,31 +33,38 @@ const row = (props) => {
     }
   
 
-    const hiddenRowClass = [classes['row--section-hide'], showClasses[ii]];
+    const hiddenRowClass = [classes['row__section-hide'], showClasses[ii]];
+    const arrowStyle = {
+        transition: 'all .2s linear',
+        transform: 'rotate('+props.rotateValue+'deg)',
+    }
 
     let rowClasses;
     switch (props.rowType) {
-        case 'HEADER': rowClasses = 'row--header'; break;
-        case 'BODY': rowClasses = 'row--body'; break;
-        case 'FOOTER': rowClasses = 'row--footer'; break;
+        case 'HEADER': rowClasses = 'row__header'; break;
+        case 'BODY': rowClasses = 'row__body'; break;
+        case 'FOOTER': rowClasses = 'row__footer'; break;
         default: rowClasses = ''; 
     };
 
     return (
     <div className={[classes['row'], classes[rowClasses]].join(' ')}>
-        <div className={classes['row--section-on']} onClick={props.clicked}>
-            <span className={classes['row--num']}>{props.rowNum}</span>
-            <ul className={classes['row--info']}>
+        <div className={classes['row__section-on']}>
+            <span className={classes['row__num']}>{props.rowNum}</span>
+            <ul className={classes['row__info']}>
                 { rowInfoListItemsOn }
             </ul>
-            <ul className={classes['row--actions']}>
-                <button>Akcja 1</button>
-                <button>Akcja 2</button>
-                <button>Akcja 3</button>
+            <ul className={classes['row__actions']}>
+                <Button clicked={props.firstAction} parentClass={classes['row__btn']}>Akcja 1</Button>
+                <Button clicked={props.secondAction} parentClass={classes['row__btn']}>Akcja 2</Button>
+                <Button clicked={props.thirdAction} parentClass={classes['row__btn']}>Akcja 3</Button>
             </ul>
         </div>
+        <div className={classes['row__arrow']} onClick={props.clicked}>
+            <img width="20" src={arrow} alt="down" style={arrowStyle}/>
+        </div>
         <div className={hiddenRowClass.join(' ')}>
-            <ul className={classes['row--info-hide']}>
+            <ul className={classes['row__info-hide']}>
                 { rowInfoListItemsHide }
             </ul>
         </div>

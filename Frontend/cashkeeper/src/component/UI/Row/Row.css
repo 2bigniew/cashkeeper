@@ -3,23 +3,23 @@
     margin-bottom: 5px;
 }
 
-.row--header {
+.row__header {
 
 }
 
-.row--body {
+.row__body {
     background: rgba(32, 131, 29, 0.1);
 }
 
-.row--footer {
+.row__footer {
     
 }
 
-.row--num {
+.row__num {
 
 }
 
-.row--section-on {
+.row__section-on {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -31,16 +31,16 @@
     box-sizing: border-box;
 }
 
-.row--section-on:hover {
+.row__arrow {
+    cursor: pointer;
+}
+
+.row__arrow:hover {
     background: rgba(32, 131, 29, 0.336);
 }
 
-.row--section-hide {
-    
-}
-
-.row--info {
-    width: 65%;
+.row__info {
+    width: 70%;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -48,20 +48,20 @@
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
         flex-direction: row;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-        justify-content: center;
+    -webkit-box-pack: left;
+    -ms-flex-pack: left;
+        justify-content: left;
 }
 
-.row--info--li {
+.row__info__li {
     padding: 0 10px;
     box-sizing: border-box;
-    min-width: 33%;
+    min-width: 50px;
     text-align: left;
 }
 
-.row--actions {
-    width: 35%;
+.row__actions {
+    width: 30%;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -71,7 +71,7 @@
             flex-direction: row;
 }
 
-.row--info-hide {
+.row__info-hide {
     width: 65%;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -87,18 +87,60 @@
             justify-content: center;
 }
 
-.row--info--li-hide {
+.row__info__li-hide {
     padding: 5px 30px;
     box-sizing: border-box;
     text-align: left;
 }
 
-.row--hide {
+.row__hide {
     height: 0;
     visibility: hidden;
 }
 
-.row--show {
+.row__show {
     height: auto;
     visibility: visible;
+}
+
+.row__btn {
+    margin: 0 5%;
+    background: rgb(245,245,245);
+    border-radius: 5px;
+    border: 2px solid #A27FB2;
+}
+
+.row__btn:hover {
+    background: #A27FB2;
+    color: white;
+}
+
+@media (max-width: 750px) {
+    .row__section-on {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+                flex-direction: column;
+    }
+
+    .row__info {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .row__info__li {
+        padding: 5px 10px;
+        box-sizing: border-box;
+        width: 100%;
+        text-align: center;
+    }
+
+    .row__actions {
+        width: 100%;
+        justify-content: center;
+        margin-top: 10px;
+    }
 }

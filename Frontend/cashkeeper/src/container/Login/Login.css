@@ -20,7 +20,7 @@
             justify-content: center
 }
 
-.login--logo {
+.login__logo {
     font-size: 1.6rem;
     text-align: left;
     color: #A27FB2;
@@ -28,7 +28,7 @@
     margin-bottom: 20px;
 }
 
-.login--section {
+.login__section {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -45,11 +45,11 @@
     box-sizing: border-box;
 }
 
-.login--form {
+.login__form {
 
 }
 
-.login--form-row {
+.login__form-row {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -63,7 +63,7 @@
     margin-bottom: 5px;
 }
 
-.login--input {
+.login__input {
     height: 34px;
     width: 280px;
     margin-left: auto;
@@ -74,25 +74,25 @@
     border-bottom: 1px solid rgb(100, 100, 100);
 }
 
-.login--input:focus {
+.login__input:focus {
     outline: 1px solid #14CC74;
     box-shadow: 0px 0px 15px -3px #14CC74;
     border: none;
     background: rgba(20, 204, 115, 0.1);
 }
 
-.login--label {
+.login__label {
     font-size: 0.8rem;
     letter-spacing: 1px;
     margin-bottom: 10px;
 }
 
-.login--input-row {
+.login__input-row {
     display: flex;
     flex-direction: row;
 }
 
-.login--check {
+.login__check {
     width: 10px;
     height: 10px;
     border: 1px solid #14CC74;
@@ -103,13 +103,13 @@
     margin-left: 10px;
 }
 
-.login--check img{
+.login__check img{
     position: absolute;
     top: -5px;
     left: 1px;
 }
 
-.login--button {
+.login__button {
     height: 34px;
     width: 160px;
     margin: 40px 0 10px 0;
@@ -130,7 +130,7 @@
 }
 
 @media (min-width: 600px) {
-    .login--section {
+    .login__section {
         width: 600px;
         margin-left: auto;
         margin-right: auto;

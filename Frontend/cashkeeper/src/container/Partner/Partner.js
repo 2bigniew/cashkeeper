@@ -4,22 +4,42 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/indexAction';
 import Row from '../../component/UI/Row/Row';
 import Loader from '../../component/UI/Loader/Loader';
+import classes from './Partner.css';
+import Input from '../../component/UI/Input/Input';
+import Button from '../../component/UI/Button/Button';
 
 class Partner extends Component {
     state = {
         rows: [
-        { rowId: 0, show: false }
-    ]
+        { rowId: 0, show: false, rotate: '0' }
+        ],
+        loader: true
     }
 
     componentDidMount() {
         this.props.onGetPartner();
     }
 
+    componentWillReceiveProps() {
+        this.setState({ loader: false })
+    }
+
     showHiddenRowHandler = (rowId, i, showhidden) => {
         const rows = this.state.rows;
-        rows[i] = { rowId: rowId, show: !showhidden};
+        rows[i] = { rowId: rowId, show: !showhidden, rotate: showhidden  ? '0' : '180'};
         this.setState({ rows: rows });
+    }
+
+    firstActionHandler = () => {
+        console.log('firstActionHandler');
+    }
+
+    secondtActionHandler = () => {
+        console.log('secondtActionHandler');
+    }
+
+    thirdActionHandler = () => {
+        console.log('thirdActionHandler');
     }
 
     render() {
@@ -39,6 +59,7 @@ class Partner extends Component {
                 ];
 
                 const showhidden = this.state.rows[index] ? this.state.rows[index].show : false;
+                const rotate = this.state.rows[index] ? this.state.rows[index].rotate : '0';
                 
                 return (
                     <Row key={'partner'+partner.partner_id}
@@ -46,7 +67,11 @@ class Partner extends Component {
                         columnsHide={columnsHideArr}
                         rowNum={index+1}
                         showHiddenRow={showhidden}
+                        rotateValue={rotate}
                         clicked={() => this.showHiddenRowHandler(partner.partner_id, index, showhidden)}
+                        firstAction={this.firstActionHandler}
+                        secondAction={this.secondtActionHandler}
+                        thirdAction={this.thirdActionHandler}
                         rowType={'BODY'} />
                 )
             })
@@ -56,8 +81,16 @@ class Partner extends Component {
 
         return(
             <div>
-                <h1 onClick={this.lololo}>Partner</h1>
+                <h1 className={classes['partner__h1']}>Partner</h1>
+                <div className={classes['partner__searchbox']}>
+                    <label className={classes['partner__label']}>Znajdź partnera</label>
+                    <input type="text" 
+                        className={classes['partner__search']}
+                        placeholder='Nazwisko...' />
+                    <Button parentClass={classes['partner--search-btn']}>Wyszukaj</Button>
+                </div>
                 { allPartners }
+                <Loader displayLoader={this.state.loader} />
             </div>
         )
     }
