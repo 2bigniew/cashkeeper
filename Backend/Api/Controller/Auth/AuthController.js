@@ -56,8 +56,6 @@ exports.localLogIn = ( req, res, next ) => {
             res.json(info);
         } else {
             req.login(user, { session: false }, ( err2 ) => {
-                console.log(req.session);
-                console.log('+++++++++++++++++++++++++++++++++++++++++');
                 if (err2) {
                     throw new RouteError(1, fileName, 34, 'Somthing went wrong while try to authenticate');
                 } else {

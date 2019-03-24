@@ -9,16 +9,16 @@ module.exports = function(passport, user) {
     passport.use('cashkeeper-token-get', new JWTStrategy({
         jwtFromRequest: ExtractJWT.fromUrlQueryParameter('user_token'),
         secretOrKey: process.env.SECRET
-    }, (jwtPayload, cb) => {
-        console.log(jwtPayload);
-        console.log('------------------');
-        console.log(cb);
+    }, (jwtPayload,done) => {
         return User.findByPk(jwtPayload.user_id)
             .then( user => {
-                return cb(null, user);
+                console.log('------start--------');
+                console.log(user);
+                console.log('-----koniec---------');
+                return done(null, user);
             })
             .catch( err => {
-                return cb(err);
+                return done(err);
             })
     }));
 }
