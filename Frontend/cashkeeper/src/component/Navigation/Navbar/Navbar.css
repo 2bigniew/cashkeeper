@@ -1,4 +1,4 @@
-.nav--list {
+.nav__list {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -7,14 +7,14 @@
     margin-bottom: 10px;
 }
 
-.nav--listitem {
+.nav__listitem {
     border: 1px solid white;
     display: block;
     height: 100%;
     width: 25%;
 }
 
-.nav--listitem a {
+.nav__listitem a {
     text-decoration: none;
     color: white;
     padding-top: 15px;
@@ -24,7 +24,7 @@
     transition: .2s;
 }
 
-.nav--listitem a:hover {
+.nav__listitem a:hover {
     text-decoration: underline;
     background: rgba(255, 255, 255, 0.137);
 }

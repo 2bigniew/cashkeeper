@@ -1,21 +1,21 @@
-.layout--container {
+.layout__container {
     width: 100vw;
     height: 100vh;
     max-width:100%;
 }
 
-.layout--navbar {
+.layout__navbar {
 
 }
 
-.layout--header {
+.layout__header {
     min-height: 5%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.layout--logo {
+.layout__logo {
     font-size: 1.6rem;
     text-align: left;
     color: #A27FB2;
@@ -23,7 +23,7 @@
     margin-bottom: 20px;
 }
 
-.layout--name {
+.layout__name {
     color: #A27FB2;
 }
 
@@ -41,17 +41,17 @@
     color: white;
 }
 
-.layout--content {
+.layout__content {
     min-height: 79%;
     box-sizing: border-box;
 }
 
-.layout--msg {
+.layout__msg {
     color: #7DB299;
     padding-bottom: 50px;
 }
 
-.layout--footer {
+.layout__footer {
     background: #A27FB2;
     text-align: left;
     display: -webkit-box;
@@ -65,7 +65,7 @@
     min-height: 5%;
 }
 
-.layout--footer a {
+.layout__footer a {
     color: white;
     padding: 2px;
     -webkit-box-sizing: border-box;
@@ -73,11 +73,11 @@
     font-size: .9rem;
 }
 
-.layout--footer a:hover {
+.layout__footer a:hover {
     color: rgb(196, 13, 13);
 }
 
-.layout--footer p {
+.layout__footer p {
     color: white;
     font-size: 1.2rem;
     padding: 10px;
@@ -85,13 +85,13 @@
             box-sizing: border-box;
 }
 
-.layout--error {
+.layout__error {
     color: red;
     font-size: 16px;
 }
 
 @media (max-width: 600px) {
-    .layout--logo {
+    .layout__logo {
         font-size: 1rem;
         padding: 10px 0;
     }

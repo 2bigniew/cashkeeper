@@ -5,6 +5,7 @@ import Aux from '../../hoc/Aux/Aux';
 import classes from './Login.css';
 import * as actions from '../../store/actions/indexAction';
 import checkMarkImg from '../../assets/check.png';
+import Loader from '../../component/UI/Loader/Loader';
 
 class Login extends Component {
     state = {
@@ -17,7 +18,8 @@ class Login extends Component {
             valid: false
         },
         isValid: false,
-        disabled: false
+        disabled: false,
+        loader: false
     }
 
     formValidation = (input) => {
@@ -62,6 +64,7 @@ class Login extends Component {
         const login = this.state.login.value;
         const password = this.state.password.value;
         this.props.onGetAuthorization(login, password);
+        this.setState({ loader: true });
         this.props.history.push('/');
     }
 
@@ -70,7 +73,7 @@ class Login extends Component {
         if (this.state.disabled) {
             btnValidationClass = classes["btn-validation-class"];
         };
-        const btnClasses = [classes["login--button"], btnValidationClass].join(' ');
+        const btnClasses = [classes["login__button"], btnValidationClass].join(' ');
 
         let checkMarkLogin = '';
         if (this.state.login.valid) {
@@ -84,26 +87,26 @@ class Login extends Component {
         return(
             <Aux>
                 <main className={classes.login}>
-                    <section className={classes["login--section"]}>
-                        <form className={classes["login--form"]}>
-                            <div className={classes["login--form-row"]}>
-                                <label className={classes["login--label"]}>
+                    <section className={classes["login__section"]}>
+                        <form className={classes["login__form"]}>
+                            <div className={classes["login__form-row"]}>
+                                <label className={classes["login__label"]}>
                                     Login:
                                 </label>
-                                <div className="login--input-row">
+                                <div className="login__input-row">
                                     <input 
                                         onInput={(e) => this.getLoginHandler(e)}
                                         type="text" 
                                         name="login" 
                                         placeholder="Twój login..." 
-                                        className={classes["login--input"]}/>
-                                        <div className={classes["login--check"]}>
+                                        className={classes["login__input"]}/>
+                                        <div className={classes["login__check"]}>
                                           { checkMarkLogin }
                                         </div>
                                 </div>
                             </div>
-                            <div className={classes["login--form-row"]}>
-                                <label className={classes["login--label"]}>
+                            <div className={classes["login__form-row"]}>
+                                <label className={classes["login__label"]}>
                                     Hasło: 
                                 </label>
                                 <div>
@@ -112,24 +115,24 @@ class Login extends Component {
                                         type="password" 
                                         name="password" 
                                         placeholder="Twoje hasło..." 
-                                        className={classes["login--input"]}/>
-                                        <div className={classes["login--check"]}>
+                                        className={classes["login__input"]}/>
+                                        <div className={classes["login__check"]}>
                                           { checkMarkPass }
                                         </div>
                                 </div>
                             </div>
-                            <div className={classes["login--form-row"]}>
+                            <div className={classes["login__form-row"]}>
                                 <input 
                                     disabled={this.state.disabled}
-                                    type="submit" 
+                                    type="button" 
                                     onClick={(e) => this.authorizationHandler(e)} 
-                                    role="button"
                                     className={btnClasses}
                                     value="Zaloguj!"/>
                             </div>
                         </form>
                     </section>
                 </main>
+                <Loader displayLoader={this.state.loader} />
             </Aux>
         )
     }
