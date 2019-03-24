@@ -20,7 +20,7 @@
             justify-content: center
 }
 
-.nac--logo {
+.nac__logo {
     font-size: 1.6rem;
     text-align: left;
     color: #A27FB2;
@@ -28,7 +28,7 @@
     margin-bottom: 20px;
 }
 
-.nac--list {
+.nac__list {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -42,7 +42,7 @@
     margin-bottom: 40px;
 }
 
-.nac--list-item {
+.nac__list-item {
     width: 25%;
     padding: 3%;
     -webkit-box-sizing: border-box;
@@ -54,27 +54,27 @@
     transition: .3s;
 }
 
-.nac--list-item:hover {
+.nac__list-item:hover {
     background: #AE00FF;
     color: white;
     border-radius: 5px;
 }
 
-.nac--content {
+.nac__content {
     border: 4px solid rgba(125, 178, 153, 0.5);
     border-radius: 10px;
     -webkit-box-shadow: 0px 0px 57px -3px rgba(125, 178, 153, 0.5);
     box-shadow: 0px 0px 57px -3px rgba(125, 178, 153, 0.5);
 }
 
-.nac--catchword {
+.nac__catchword {
     font-size: 1.4rem;
     padding: 15px;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
 }
 
-.nac--quotes {
+.nac__quotes {
     padding: 15px;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
@@ -82,11 +82,11 @@
     letter-spacing: 1px;
 }
 
-.nac--diagram {}
+.nac__diagram {}
 
-.nac--links-group {}
+.nac__links-group {}
 
-.nac--footer {
+.nac__footer {
     background: #A27FB2;
     text-align: left;
     display: -webkit-box;
@@ -101,7 +101,7 @@
     width: 100%;
 }
 
-.nac--footer a {
+.nac__footer a {
     color: white;
     padding: 2px;
     -webkit-box-sizing: border-box;
@@ -109,11 +109,11 @@
     font-size: .9rem;
 }
 
-.nac--footer a:hover {
+.nac__footer a:hover {
     color: rgb(196, 13, 13);
 }
 
-.nac--footer p {
+.nac__footer p {
     color: white;
     font-size: 1.2rem;
     padding: 10px;
@@ -122,7 +122,7 @@
 }
 
 @media (min-width: 600px) {
-    .nac--content {
+    .nac__content {
         width: 600px;
         margin-left: auto;
         margin-right: auto;

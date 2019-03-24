@@ -50,28 +50,28 @@ class Homepage extends Component {
             nonAuthContent = (
                 <Aux>
                     <main className={classes.homepage}>
-                        <section className={classes["homepage--links-group"]}>
-                            <ul className={classes["homepage--list"]}>
-                                <NavigationItem navClass={classes["homepage--list-item"]}
+                        <section className={classes["homepage__links-group"]}>
+                            <ul className={classes["homepage__list"]}>
+                                <NavigationItem navClass={classes["homepage__list-item"]}
                                 link={'/about'}>
                                     Info
                                 </NavigationItem>
-                                <NavigationItem navClass={classes["homepage--list-item"]}
+                                <NavigationItem navClass={classes["homepage__list-item"]}
                                 link={'/create-account'}>
                                     Utwórz konto
                                 </NavigationItem>
-                                <NavigationItem navClass={classes["homepage--list-item"]}
+                                <NavigationItem navClass={classes["homepage__list-item"]}
                                 link={'/login'}>
                                     Zaloguj
                                 </NavigationItem>
                             </ul>      
                         </section>
-                        <div className={classes["homepage--content"]}>
-                            <h2 className={classes["homepage--catchword"]}>Oszczędzaj hajs, dzieciok</h2>
-                            <h3 className={classes["homepage--quotes"]}>
+                        <div className={classes["homepage__content"]}>
+                            <h2 className={classes["homepage__catchword"]}>Oszczędzaj hajs, dzieciok</h2>
+                            <h3 className={classes["homepage__quotes"]}>
                                 { quotesAndAut }
                             </h3>
-                            <div className={classes["homepage--diagram"]} id="diagram-homepage">
+                            <div className={classes["homepage__diagram"]} id="diagram-homepage">
                             <canvas id="canvas-homepage" width="280" height="180"></canvas>
                             </div>
                         </div>
