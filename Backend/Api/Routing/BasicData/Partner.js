@@ -14,6 +14,10 @@ router.get('/list',
 	passport.authenticate('cashkeeper-token-get', { session: false }), 
 	errorHandler.catchAsyncErrors(PartnerCotroller.getPartnersBasicData));
 
+router.get('/getById', 
+	passport.authenticate('cashkeeper-token-get', { session: false }), 
+	errorHandler.catchAsyncErrors(PartnerCotroller.getSinglePartnerDataById));
+
 router.get('/:lastname', 
 	passport.authenticate('cashkeeper-token-get', { session: false }), 
 	errorHandler.catchAsyncErrors(PartnerCotroller.getPartnerDataByLastname));
