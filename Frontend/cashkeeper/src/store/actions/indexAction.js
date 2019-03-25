@@ -6,5 +6,10 @@ export {
 } from './homePage';
 
 export {
-    getPartnerInfo
+    getPartnerInfo,
+    getSinglePartnerInfo
 } from './partner';
+
+export {
+    getBorrowInfo
+} from './borrow';
