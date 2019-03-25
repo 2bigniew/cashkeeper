@@ -12,9 +12,6 @@ module.exports = function(passport, user) {
     }, (jwtPayload,done) => {
         return User.findByPk(jwtPayload.user_id)
             .then( user => {
-                console.log('------start--------');
-                console.log(user);
-                console.log('-----koniec---------');
                 return done(null, user);
             })
             .catch( err => {
