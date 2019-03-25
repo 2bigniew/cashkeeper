@@ -1,0 +1,40 @@
+import * as actionTypes from'../actions/actionTypes';
+
+const initialState = {
+    borrowData: {},
+    borrowCount: 0,
+    borrowMsg: ''
+};
+
+const setBorrowList = (state, action) => {
+    const oldState = {
+        ...state
+    };
+
+    const updatedBorrow = {
+        ...action.borrow
+    }
+
+    let count = 0;
+    for (let borrow in updatedBorrow) {
+        count = count + 1;
+    }
+
+    const newState = {
+        ...oldState,
+        borrowData: {
+            ...updatedBorrow
+        },
+        borrowCount: count,
+    }
+    return newState;
+}
+
+const reducer = (state = initialState, action) => {
+    switch(action.type) {
+        case actionTypes.BORROW_INFO_SUCCESS: return setBorrowList(state, action);
+        default: return state;
+    }
+}
+
+export default reducer;

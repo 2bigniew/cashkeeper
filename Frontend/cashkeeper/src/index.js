@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 
 import homePageReducer from './store/reducer/homePage';
 import partnerReducer from './store/reducer/partner';
+import borrowReducer from './store/reducer/borrow';
 
 import './index.css';
 import App from './App';
@@ -14,7 +15,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     homePage: homePageReducer,
-    partner: partnerReducer
+    partner: partnerReducer,
+    borrow: borrowReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(
