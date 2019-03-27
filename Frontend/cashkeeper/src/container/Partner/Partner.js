@@ -81,7 +81,7 @@ class Partner extends Component {
 
         return(
             <div>
-                <h1 className={classes['partner__h1']}>Partner</h1>
+                <h1 className={classes['partner__h1']}>Twoi partnerzy</h1>
                 <div className={classes['partner__searchbox']}>
                     <label className={classes['partner__label']}>Znajdź partnera</label>
                     <input type="text" 

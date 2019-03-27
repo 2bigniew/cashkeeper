@@ -13,3 +13,7 @@ export {
 export {
     getBorrowInfo
 } from './borrow';
+
+export {
+    getLoanInfo
+} from './loan';
