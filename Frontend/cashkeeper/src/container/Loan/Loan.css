@@ -1,0 +1,70 @@
+.loan__h1 {
+    margin-bottom: 20px;
+}
+
+.loan__action-row {
+    margin-bottom: 30px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+            justify-content: space-between;
+}
+
+.loan__box {
+    margin: 20px 5%;
+}
+
+.loan__label {
+    margin-right: 15px;
+}
+
+.loan__search {
+    margin-right: 15px;
+    width: 260px;
+    padding: 8px;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid rgb(100, 100, 100);
+}
+
+.loan__search:focus {
+    outline: 1px solid #14CC74;
+    box-shadow: 0px 0px 15px -3px #14CC74;
+    border: none;
+}
+
+.loan--btn {
+    background: rgb(245,245,245);
+    border-radius: 5px;
+    border: 1px solid #A27FB2;
+    transition: linear .1s all;
+    margin-top: 1px;
+}
+
+.loan--btn:hover {
+    transform: scale(0.95);
+    color: #A27FB2;
+}
+
+@media (max-width: 750px) {
+    .loan__action-row {
+        margin-bottom: 30px;
+        flex-direction: column-reverse;
+        justify-content: center;
+    }
+    
+    .loan__box {
+        margin: 0 5% 20px 5%;
+    }
+
+    .loan--btn {
+        margin-top: 15px;
+    }
+}
+

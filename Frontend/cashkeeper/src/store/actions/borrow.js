@@ -19,7 +19,7 @@ export const getBorrowInfo = () => {
         try {
             const token = window.localStorage.getItem('user_token');
             const borrow = await axios.get('/api/borrow/list?user_token='+token);
-            console.log(borrow.data.data);
+            // console.log(borrow.data.data);
             dispatch(borrowInfoSuccess(borrow.data.data));
         } catch {
             dispatch(borrowInfoFail());
