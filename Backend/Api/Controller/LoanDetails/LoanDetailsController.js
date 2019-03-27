@@ -20,10 +20,16 @@ exports.getLoanDetailsData = async(req, res, next) => {
         userId = req.user.dataValues.user_id;
     }
 
+    PartnerAccount.hasMany(LoanDetails, {foreignKey: 'partner_id'});
+    LoanDetails.belongsTo(PartnerAccount, {foreignKey: 'partner_id'});
+
     const loans = await LoanDetails.findAll({
         where: {
             user_id: userId
-        }
+        }, 
+        include: [{
+            model: PartnerAccount,
+        }]
     });
 
     res.status(200);
