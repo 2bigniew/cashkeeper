@@ -6,7 +6,7 @@ exports.getUserBasicData = async(req, res, next) => {
     if (process.env.NODE_ENV === 'test') {
         userId = 23;
     } else {
-        userId = req.session.passport.user;
+        userId = req.user.dataValues.user_id;
     };
 
     const userAccount = await UserAccount.findByPk(userId);
