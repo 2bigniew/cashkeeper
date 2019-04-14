@@ -125,3 +125,28 @@ export const userLogout = () => {
         }
     }
 }
+
+const userWholeInfoSuccess = (data) => {
+    return {
+        type: actionTypes.GET_USER_WHOLE_INFO_SUCCESS,
+        userDetails: data
+    }
+}
+
+const userWholeInfoFail = () => {
+    return {
+        type: actionTypes.GET_USER_WHOLE_INFO_FAIL
+    }
+}
+
+export const setUserDetails = () => {
+    return async dispatch => {
+        try {
+            const token = window.localStorage.getItem('user_token');
+            const userDetails = await axios.get('/api/user/info?user_token='+token);
+            dispatch(userWholeInfoSuccess(userDetails.data));
+        } catch {
+            dispatch(userWholeInfoFail());
+        }
+    }
+}
