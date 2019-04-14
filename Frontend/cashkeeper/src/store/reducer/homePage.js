@@ -12,6 +12,7 @@ const initialState = {
     ],
     isLogged: window.localStorage.getItem('cashkeeperUser') ? true : false,
     user: window.localStorage.getItem('cashkeeperUser') ? JSON.parse(window.localStorage.getItem('cashkeeperUser')) : null,
+    userDetails: null,
     msg: '',
     logoutMsg: ''
 };
@@ -121,6 +122,22 @@ const setUserLogout = (state, action) => {
     return newState;
 }
 
+const setUserInfo = (state, action) => {
+    const oldState = {
+        ...state
+    }
+
+    const newState = {
+        ...oldState,
+        userDetails: {
+            ...action.userDetails
+        }
+    }
+    console.log(newState);
+    
+    return newState;
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.SET_START_QUOTES: return setQuotes(state, action);
@@ -129,6 +146,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.CREATE_ACCOUNT_SUCCESS: return setCreatedUser(state, action);
         case actionTypes.CREATE_ACCOUNT_FAILED: return setCreateAccountFailedMsg(state, action);
         case actionTypes.USER_LOGOUT: return setUserLogout(state, action);
+        case actionTypes.GET_USER_WHOLE_INFO_SUCCESS: return setUserInfo(state, action);
         default: 
             return state;
     }

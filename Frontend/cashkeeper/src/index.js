@@ -8,6 +8,7 @@ import homePageReducer from './store/reducer/homePage';
 import partnerReducer from './store/reducer/partner';
 import borrowReducer from './store/reducer/borrow';
 import loanReducer from './store/reducer/loan';
+import paymentReducer from './store/reducer/payment';
 
 import './index.css';
 import App from './App';
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
     homePage: homePageReducer,
     partner: partnerReducer,
     borrow: borrowReducer,
-    loan: loanReducer
+    loan: loanReducer,
+    payment: paymentReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(

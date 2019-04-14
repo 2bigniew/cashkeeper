@@ -5,7 +5,6 @@ import * as actions from '../../store/actions/indexAction';
 import Row from '../../component/UI/Row/Row';
 import Loader from '../../component/UI/Loader/Loader';
 import classes from './Borrow.css';
-import Input from '../../component/UI/Input/Input';
 import Button from '../../component/UI/Button/Button';
 
 class Borrow extends Component {
