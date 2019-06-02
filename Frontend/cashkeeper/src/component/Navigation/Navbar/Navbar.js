@@ -9,7 +9,7 @@ const Navbar = (props) => {
     if (props.showMobileNav) {
         menu = 'X';
         mobileNav = (
-            <BlackBoard left={0} top={'80px'} width={'80vw'} closeBlackBoard={props.closeNav}>
+            <BlackBoard left={0} top={'80px'} width={'80vw'} closeBlackBoard={props.closeNav} mobile={true}>
                 <ul className={classes["nav-mobile__list"]}>
                     <NavigationItem navClass={classes["nav-mobile__listitem"]} link={"/partner"} >Partnerzy</NavigationItem>
                     <NavigationItem navClass={classes["nav-mobile__listitem"]} link={"/borrow"} >Pożyczenia</NavigationItem>

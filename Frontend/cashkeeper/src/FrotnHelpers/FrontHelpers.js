@@ -1,3 +1,52 @@
+exports.validationInputProcess = (value, validation) => {
+    const myRegexp = {
+        alphaNum: /^[a-z0-9]+$/i,
+        alpha: /^[a-z]+$/i,
+        num: /^\d+$/,
+        mail: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+    };
+
+    let valid = true;
+
+    if (validation.minLength) {
+        valid = value.length >= validation.minLength && valid;
+    }
+
+    if (validation.maxLength) {
+        valid = value.length <= validation.maxLength && valid;
+    }
+
+    if (validation.isAlphanum) {         
+        valid = myRegexp.alphaNum.test(value) && valid;
+    }
+
+    if (validation.isAlpha) {
+        valid = myRegexp.alpha.test(value) && valid;
+    }
+
+    if (validation.isNum) {
+        valid = myRegexp.num.test(value) && valid;
+    }
+
+    if (validation.isMail) {
+        valid = myRegexp.mail.test(value) && valid;
+    }
+
+    if (validation.isSecondPass) {
+        valid = this.state.formFields.password.value === value &&
+        value.trim() !== '' && valid;
+    }
+
+    return valid;
+}
+
+exports.modalPurpose = {
+       CREATE: 'CREATE',
+       READ: 'READ',
+       UPDATE: 'UPDATE',
+       DELETE: 'DELETE' 
+};
+
 exports.firstnameFormat = (firstname) => {
     return firstname.split('').map( (l, i) => {
         if (i === 0) {

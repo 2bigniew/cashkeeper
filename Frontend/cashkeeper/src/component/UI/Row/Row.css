@@ -74,6 +74,10 @@
             flex-direction: row;
 }
 
+.row__actions__li {
+    margin: 0 5%;
+}
+
 .row__info-hide {
     width: 65%;
     display: -webkit-box;
@@ -107,7 +111,6 @@
 }
 
 .row__btn {
-    margin: 0 5%;
     background: rgb(245,245,245);
     border-radius: 5px;
     border: 2px solid #A27FB2;

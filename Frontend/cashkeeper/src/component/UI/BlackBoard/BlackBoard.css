@@ -1,6 +1,7 @@
 .blackboard {
     position: fixed;
     top: 0;
+    left: 0;
     height: 100vh;
     background: rgba(10, 10, 10, 0.603);
     z-index: 9000;
@@ -13,7 +14,12 @@
 }
 
 @media (min-width: 551px) {
-    .blackboard {
+    .blackboard_mobile {
         display: none;
     }
+
+    .blackboard_content {
+        width: 80%;
+    }
+    
 }
