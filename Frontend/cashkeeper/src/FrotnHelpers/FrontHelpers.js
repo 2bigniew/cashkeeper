@@ -1,3 +1,13 @@
+exports.firstnameFormat = (firstname) => {
+    return firstname.split('').map( (l, i) => {
+        if (i === 0) {
+            return l.toUpperCase();
+        } else {
+            return l.toLowerCase();
+        }
+    }).join('');
+}
+
 exports.drawNewDiagram = (canvas) => {
     const getCoordinates = (x, y) => {
         const newX = Math.floor((Math.random()+1)*16);

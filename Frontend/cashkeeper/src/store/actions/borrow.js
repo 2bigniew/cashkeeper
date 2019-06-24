@@ -26,3 +26,29 @@ export const getBorrowInfo = () => {
         }
     }
 };
+
+const borrowSumSuccess = (data) => {
+    return {
+        type: actionTypes.BORROW_SUM_SUCCESS,
+        borrowSum: data
+    }
+}
+
+const borrowSumFail = () => {
+    return {
+        type: actionTypes.BORROW_SUM_FAIL
+    }
+}
+
+export const getBorrowSum = () => {
+    return async dispatch => {
+        try {
+            const token = window.localStorage.getItem('user_token');
+            const borrowSum = await axios.get('/api/borrow/find/sum?user_token='+token);
+            console.log(borrowSum);
+            dispatch(borrowSumSuccess(borrowSum.data.data));
+        } catch {
+            dispatch(borrowSumFail());
+        }
+    }
+}

@@ -25,7 +25,9 @@ class Layout extends Component {
             <Aux>
                 <div className={classes["layout__container"]}>
                     <header className={classes["layout__header"]}>
-                        <h1 className={classes["layout__logo"]}>#Cashkeeper</h1>
+                        <h1 className={classes["layout__logo"]}>
+                            <a className={classes["layout__anchor"]} href="/">#Cashkeeper</a>
+                        </h1>
                         { logoutBtn }
                     </header>
                     <div className={classes["layout__content"]}>

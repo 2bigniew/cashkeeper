@@ -1,0 +1,19 @@
+.blackboard {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    background: rgba(10, 10, 10, 0.603);
+    z-index: 9000;
+    transition: .5s;
+}
+
+.blackboard_content {
+    position: absolute;
+    width: 100%;
+}
+
+@media (min-width: 551px) {
+    .blackboard {
+        display: none;
+    }
+}
