@@ -1,0 +1,41 @@
+.modal {
+    width: 80%;
+    min-height: 500px;
+    background: rgb(245 ,245, 245);
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.modal__header {
+    
+}
+
+.modal__h1 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+.modal__btn {
+    margin-left: auto;
+    display: block;
+    padding: 5px 15px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background: inherit;
+    border: 1px solid #A27FB2;
+    cursor: pointer;
+}
+
+.modal__btn:focus {
+    outline: #A27FB2;
+}
+
+.modal__btn:hover {
+    background: #A27FB2;
+    color: white;
+}
+
+.modal__body {
+    
+}

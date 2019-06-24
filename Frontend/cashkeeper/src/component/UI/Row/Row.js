@@ -55,9 +55,8 @@ const row = (props) => {
                 { rowInfoListItemsOn }
             </ul>
             <ul className={classes['row__actions']}>
-                <Button clicked={props.firstAction} parentClass={classes['row__btn']}>Akcja 1</Button>
-                <Button clicked={props.secondAction} parentClass={classes['row__btn']}>Akcja 2</Button>
-                <Button clicked={props.thirdAction} parentClass={classes['row__btn']}>Akcja 3</Button>
+                <li className={classes['row__actions__li']}><Button clicked={props.firstAction} parentClass={classes['row__btn']}>{props.firstBtn}</Button></li>
+                <li className={classes['row__actions__li']}><Button clicked={props.secondAction} parentClass={classes['row__btn']}>{props.secondBtn}</Button></li>
             </ul>
         </div>
         <div className={classes['row__arrow']} onClick={props.clicked}>
