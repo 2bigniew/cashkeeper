@@ -6,51 +6,8 @@ const Helpers = require('../../../Helpers/Helpers');
 const ErrorMsg = Helpers.errorMsg;
 const PartnerParams = require('../../../Helpers/Classes/PartnerParamsClass');
 
-exports.updatePartnerAccountForm = (req, res, next) => {
-    res.render('updatePartner.ejs');
-}
-
-exports.getPartnerAccountForm = (req, res, next) => {
-    res.render('getPartner.ejs');
-}
-
-exports.getPartnerInfo = async(req, res, next) => {
-    const partnerParams = new PartnerParams(req.user.dataValues.user_id, req.body.firstname, req.body.lastname, req.body.email);
-    const Op = Sequalize.Op;
-    const errorMsg = [];
-
-    if (!validator.isAlpha(partnerParams.firstname)) {
-        errorMsg.push(ErrorMsg.firstnameFieldMsg);
-    }
-
-    if (!validator.isAlpha(partnerParams.lastname)) {
-        errorMsg.push(ErrorMsg.lastnameFieldMsg);
-    }
-
-    if(!validator.isEmail(partnerParams.email)) {
-        errorMsg.push(ErrorMsg.emailFieldMsg);
-    }
-
-    if (errorMsg.length > 0) {
-        return res.send(errorMsg);
-    }
-
-    const partner = await PartnerAccount.findAll({
-        where: {
-            user_id: partnerParams.userId,
-            firstname: {
-                [Op.iLike]: partnerParams.firstname
-            },
-            lastname: {
-                [Op.iLike]: partnerParams.lastname
-            },
-            email: {
-                [Op.iLike]: partnerParams.email
-            },   
-        }
-    });
-    res.send(partner);
-}
+//
+const PartnerReadService = require('../../Service/Partner/PartnerReadService');
 
 exports.updatePatnerInfo = async(req, res, next) => {
     let userId;
@@ -115,3 +72,42 @@ exports.updatePatnerInfo = async(req, res, next) => {
     }
     res.json(response);
 }
+
+// exports.getPartnerInfo = async(req, res, next) => {
+//     const partnerParams = new PartnerParams(req.user.dataValues.user_id, req.body.firstname, req.body.lastname, req.body.email);
+//     const Op = Sequalize.Op;
+//     const errorMsg = [];
+
+//     if (!validator.isAlpha(partnerParams.firstname)) {
+//         errorMsg.push(ErrorMsg.firstnameFieldMsg);
+//     }
+
+//     if (!validator.isAlpha(partnerParams.lastname)) {
+//         errorMsg.push(ErrorMsg.lastnameFieldMsg);
+//     }
+
+//     if(!validator.isEmail(partnerParams.email)) {
+//         errorMsg.push(ErrorMsg.emailFieldMsg);
+//     }
+
+//     if (errorMsg.length > 0) {
+//         return res.send(errorMsg);
+//     }
+
+//     const partner = await PartnerAccount.findAll({
+//         where: {
+//             user_id: partnerParams.userId,
+//             firstname: {
+//                 [Op.iLike]: partnerParams.firstname
+//             },
+//             lastname: {
+//                 [Op.iLike]: partnerParams.lastname
+//             },
+//             email: {
+//                 [Op.iLike]: partnerParams.email
+//             },   
+//         }
+//     });
+//     res.send(partner);
+// }
+
