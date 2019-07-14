@@ -1,0 +1,46 @@
+.card__container {
+    width: 250px;
+    border: 1px solid #A27FB2;;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    background: rgba(162, 127, 178, 0.151);
+    min-height: 250px;
+}
+
+.card__header {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #A27FB2;
+}
+
+.card__h2 {
+
+}
+
+.card__h3 {
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.card__span_green {
+    color: green;
+}
+
+.card__span_red {
+    color: red;
+}
+
+.card__p {
+    margin-bottom: 5px;
+    text-align: center;
+    
+}
+
+.card__body {
+    background: rgba(245,245,245);
+    border-radius: 10px;
+    padding: 10px 5px;
+    box-sizing: border-box;
+}

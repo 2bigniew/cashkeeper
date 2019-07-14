@@ -19,10 +19,34 @@ export const getLoanInfo = () => {
         try {
             const token = window.localStorage.getItem('user_token');
             const loan = await axios.get('/api/loan/list?user_token='+token);
-            console.log(loan.data.data);
             dispatch(loanInfoSuccess(loan.data.data));
         } catch {
             dispatch(loanInfoFail());
         }
     }
 };
+
+const loanSumSuccess = (data) => {
+    return {
+        type: actionTypes.LOAN_SUM_SUCCESS,
+        loanSum: data
+    }
+}
+
+const loanSumFail = () => {
+    return {
+        type: actionTypes.LOAN_SUM_FAIL
+    }
+}
+
+export const getLoanSum = () => {
+    return async dispatch => {
+        try {
+            const token = window.localStorage.getItem('user_token');
+            const loanSum = await axios.get('/api/loan/find/sum?user_token='+token);
+            dispatch(loanSumSuccess(loanSum.data.data));
+        } catch {
+            dispatch(loanSumFail());
+        }
+    }
+}

@@ -289,7 +289,6 @@ class CreateAccount extends Component {
                 </div>    
             </div>
         ));
-        console.log(this.props.errorMsg);
         return(
             <Aux>
                 <main className={classes.login}>
@@ -300,9 +299,8 @@ class CreateAccount extends Component {
                             <div className={classes["ca--form-row"]}>
                                 <input 
                                     disabled={this.state.disabled}
-                                    type="submit" 
+                                    type="button" 
                                     onClick={(e) => this.createAccountHandler(e)} 
-                                    role="button"
                                     className={btnClasses}
                                     value="Zaloguj!"/>
                             </div>

@@ -3,7 +3,11 @@ const JWTStrategy   = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
 const passport = require('passport');
 
+<<<<<<< HEAD
 module.exports = function (passport, user) {
+=======
+module.exports = function(passport, user) {
+>>>>>>> e7222b59ca60091f42a7c038bee7c0e78cce189b
     const User = user;
     passport.use('cashkeeper-token-post', new JWTStrategy({
         jwtFromRequest: ExtractJWT.fromBodyField('user_token'),

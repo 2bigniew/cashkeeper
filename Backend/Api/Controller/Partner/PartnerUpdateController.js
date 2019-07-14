@@ -3,11 +3,18 @@ const validator = require('validator');
 const Sequalize = require('sequelize');
 const Helpers = require('../../../Helpers/Helpers');
 const ErrorMsg = Helpers.errorMsg;
+<<<<<<< HEAD
 const PartnerReadService = require('../../Service/Partner/PartnerReadService');
 const PartnerUpdateService = require('../../Service/Partner/PartnerUpdateService');
 
 const partnerRead = new PartnerReadService(PartnerAccount, Sequalize);
 const partnerUpdate = new PartnerUpdateService(PartnerAccount, Sequalize);
+=======
+const PartnerParams = require('../../../Helpers/Classes/PartnerParamsClass');
+
+//
+const PartnerReadService = require('../../Service/Partner/PartnerReadService');
+>>>>>>> e7222b59ca60091f42a7c038bee7c0e78cce189b
 
 exports.updatePatnerInfo = async(req, res, next) => {
     let userId;

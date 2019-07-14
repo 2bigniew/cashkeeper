@@ -2,7 +2,8 @@ export {
     getQuotes,
     getAuthorization,
     getCreateAccount,
-    userLogout
+    userLogout,
+    setUserDetails
 } from './homePage';
 
 export {
@@ -11,9 +12,18 @@ export {
 } from './partner';
 
 export {
-    getBorrowInfo
+    getBorrowInfo,
+    getBorrowSum
 } from './borrow';
 
 export {
-    getLoanInfo
+    getLoanInfo,
+    getLoanSum
 } from './loan';
+
+export {
+    getBorrowPaymentInfo,
+    getLoanPaymentInfo,
+    getBorrowPaymentSum,
+    getLoanPaymentSum
+} from './payment';
