@@ -13,10 +13,14 @@ const BorrowDetailsDeleteController = require('../../Controller/BorrowDetails/Bo
 router.get('/list', 
 	passport.authenticate('cashkeeper-token-get', { session: false }), 
 	errorHandler.catchAsyncErrors(BorrowDetailsController.getBorrowsDetailsData));
-// router.get('/find/form', Helpers.isLoggedIn, BorrowDetailsController.getBorrowsForPartnerForm);
-router.get('/find', 
+
+router.get('/partner/:partner_id', 
 	passport.authenticate('cashkeeper-token-get', { session: false }), 
 	errorHandler.catchAsyncErrors(BorrowDetailsController.getBorrowsForPartner));
+
+router.get('/find', 
+	passport.authenticate('cashkeeper-token-get', { session: false }), 
+	errorHandler.catchAsyncErrors(BorrowDetailsController.getBorrowsByCriteria));
 // router.get('/find-by-date/form', Helpers.isLoggedIn, BorrowDetailsController.getBorrowsForPartnerByDateForm);
 router.get('/find-by-date', 
 	passport.authenticate('cashkeeper-token-get', { session: false }), 

@@ -24,3 +24,9 @@ exports.catchErrors = (err, req, res, next) => {
     
     res.json(myError);
 }
+
+exports.myMiddleware = (req, res, next) => {
+    req.query.authorOfThisApp = '2bigniew';
+    next();
+
+}

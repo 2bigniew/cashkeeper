@@ -1,9 +1,10 @@
-const PartnerAccount = require('../../../Database/Models/PartnerAccount');
-const { check, validationResult } = require('express-validator/check');
-const Sequalize = require('sequelize');
 const Helpers = require('../../../Helpers/Helpers');
 const RouteError = require('../../../Helpers/Classes/RouteError');
-const ErrorMsg = Helpers.errorMsg;
+const PartnerAccount = require('../../../Database/Models/PartnerAccount');
+const Sequalize = require('sequelize');
+const PartnerReadService = require('../../Service/Partner/PartnerReadService');
+
+const partnerRead = new PartnerReadService(PartnerAccount, Sequalize);
 
 exports.getPartnersBasicData = async(req, res, next) => {
     let userId;
@@ -12,13 +13,8 @@ exports.getPartnersBasicData = async(req, res, next) => {
     } else {
         userId = req.user.dataValues.user_id;
     }
-
-    const partners = await PartnerAccount.findAll({
-        where: {
-            user_id: userId
-        }
-    });
-
+    
+    const partners = await partnerRead.getAllPartnersData(userId);
     res.status(200);
     res.json(partners);
 }
@@ -32,20 +28,10 @@ exports.getPartnerDataByLastname = async(req, res, next) => {
     }
 
     const lastname = req.params.lastname;
-    const Op = Sequalize.Op;
-
-    const partner = await PartnerAccount.findAll({
-        where: {
-            user_id: userId,
-            lastname: {
-                [Op.iLike]: `%${lastname}%`
-            }
-        }
-    });
-
+    const partners = await partnerRead.getPartnersByLastname(userId, lastname);
     res.status(200);
     const response = {
-        data: partner
+        data: partners
     }
     res.json(response);
 }
@@ -59,15 +45,11 @@ exports.getSinglePartnerDataById = async(req, res, next) => {
     }
 
     const fileName = Helpers.getOnlyFileName(__filename);
-    console.log(req.query);
     if (!req.query.partner_id) {
-        throw new RouteError(1, fileName, 63, 'Brak id partnera w zapytaniu');
+        throw new RouteError(1, fileName, 63, 'Missed partner in request');
     }
-
     const partnerId = req.query.partner_id;
-
-    const partner = await PartnerAccount.findByPk(partnerId);
-
+    const partner = await partnerRead.getPartnerById(partnerId);
     res.status(200);
     res.json(partner);
 }

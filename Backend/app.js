@@ -21,6 +21,7 @@ const LoanDetailsRouter = require('./Api/Routing/BasicData/LoanDetails');
 const LoanPaymentsDetailsRouter = require('./Api/Routing/BasicData/LoanPaymentDetails');
 const BorrowDetailsRouter = require('./Api/Routing/BasicData/BorrowDetails');
 const BorrowPaymentsDetailsRouter = require('./Api/Routing/BasicData/BorrowPaymentDetails');
+const m = require('./Api/Middleware/error');
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -66,6 +67,8 @@ app.use((req, res, next) => {
     res.setHeader('Content-Language', 'en, pl');
     next();
 });
+
+app.use(( req, res, next ) =>  m.myMiddleware( req, res, next ));
 
 // con.authenticate()
 //     .then(() => {
