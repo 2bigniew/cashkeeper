@@ -1,8 +1,12 @@
 const PartnerAccount = require('../../../Database/Models/PartnerAccount');
+const Sequalize = require('sequelize');
+const PartnerReadService = require('../../Service/Partner/PartnerReadService');
+const PartnerDeleteService = require('../../Service/Partner/PartnerDeleteService');
+const RouteError = require('../../../Helpers/Classes/RouteError');
+const Helpers = require('../../../Helpers/Helpers');
 
-exports.deletePartnerForm = (req, res, next) => {
-    res.render('deletePartner.ejs');
-}
+const partnerRead = new PartnerReadService(PartnerAccount, Sequalize);
+const partnerDelete = new PartnerDeleteService(PartnerAccount, Sequalize);
 
 exports.deletePartner = async(req, res, next) => {
     let userId;
@@ -11,22 +15,19 @@ exports.deletePartner = async(req, res, next) => {
     } else {
         userId = req.user.dataValues.user_id;
     };
-    
+    const fileName = Helpers.getOnlyFileName(__filename);
     const partnerId = req.body.partnerid;
+    const partner = await partnerRead.getPartnerForUserById(userId, partnerId);
+    if (!partner) {
+        throw new RouteError(1, fileName, 20, 'Brak partnera w bazie danych');
+    }
 
-    const partner = await PartnerAccount.findOne({
-        where: {
-            user_id: userId,
-            partner_id: partnerId
-        }
-    });
-
-    partner.destroy();
+    const destroyedPartner = await partnerDelete.handlePartnerDelete(partner);
 
     res.status(200);
     const response = {
         message: 'Partner deleted successfully',
-        data: partner
+        data: destroyedPartner
     }
     res.json(response);
 }
